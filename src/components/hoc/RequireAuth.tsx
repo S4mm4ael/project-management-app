@@ -1,5 +1,3 @@
-import * as React from 'react';
-import { ReactNode } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../hook/useAuth';
 
@@ -9,9 +7,9 @@ type Props = {
 
 function RequireAuth({ children }: Props): JSX.Element {
   const location = useLocation();
-  const { user } = useAuth();
+  const { login } = useAuth();
 
-  if (!user) {
+  if (!login) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
