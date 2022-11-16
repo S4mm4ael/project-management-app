@@ -1,24 +1,32 @@
 import { FormEvent } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../utils/fetch';
 import { useAuth } from '../hook/useAuth';
 
-export function RegisstrationPage() {
+export function RegistrationPage() {
+  const [state, dispatch] = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const { signUp } = useAuth();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const name = form.username.value;
     const login = form.login.value;
     const password = form.password.value;
-    console.log(e.currentTarget.username.value);
     const body = { name: name, login: login, password: password };
-    createUser(body);
-    signUp(login, () => navigate('/', { replace: true }));
-  };
+    const response = await createUser(body);
+    dispatch({
+      type: 'createUser',
+      data: {
+        username: name,
+        login: login,
+        password: password,
+        token: null,
+        id: response._id,
+      },
+    });
+    navigate('/login');
+  }
 
   return (
     <>

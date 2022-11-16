@@ -1,14 +1,6 @@
-const url = 'https://final-task-backend-production-e4cb.up.railway.app';
-const headers = {
-  Accept: 'application/json',
-  Authorization: `Bearer ${123}`,
-};
+import { Body } from './types';
 
-type Body = {
-  name?: string;
-  login?: string;
-  password?: string;
-};
+const url = 'https://final-task-backend-production-e4cb.up.railway.app';
 
 export async function createUser(body: Body) {
   const response = await fetch(`${url}/auth/signup`, {

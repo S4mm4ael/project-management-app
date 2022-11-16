@@ -1,15 +1,12 @@
 import { useLocation, Navigate } from 'react-router-dom';
+import { Props } from '../../utils/types';
 import { useAuth } from '../hook/useAuth';
-
-type Props = {
-  children: JSX.Element;
-};
 
 function RequireAuth({ children }: Props): JSX.Element {
   const location = useLocation();
-  const { login } = useAuth();
+  const auth = useAuth();
 
-  if (!login) {
+  if (!auth[0].token) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 

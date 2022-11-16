@@ -1,25 +1,31 @@
 import { FormEvent } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { createUser, loginUser } from '../../utils/fetch';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginUser } from '../../utils/fetch';
 import { useAuth } from '../hook/useAuth';
 
-const LoginPage = () => {
+function LoginPage() {
+  const [state, dispatch] = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const { signIn } = useAuth();
 
-  const fromPage = location.state.from.pathname || '/';
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const user = form.username.value;
+    const login = form.login.value;
     const password = form.password.value;
-    console.log(e.currentTarget.username.value);
-    const body = { login: user, password: password };
-    loginUser(body);
-    signIn(user, () => navigate(fromPage, { replace: true }));
-  };
+    const body = { login: login, password: password };
+    const response = await loginUser(body);
+    dispatch({
+      type: 'loginUser',
+      data: {
+        username: state.username || null,
+        login: login,
+        password: password,
+        token: response.token,
+        id: state.id || null,
+      },
+    });
+    navigate('/');
+  }
 
   return (
     <>
@@ -27,8 +33,8 @@ const LoginPage = () => {
       <Link to="/register">Register</Link>
       <form onSubmit={handleSubmit}>
         <label>
-          Name:
-          <input name="username" />
+          Login:
+          <input name="login" />
         </label>
         <label>
           Password:
@@ -38,6 +44,6 @@ const LoginPage = () => {
       </form>
     </>
   );
-};
+}
 
 export { LoginPage };

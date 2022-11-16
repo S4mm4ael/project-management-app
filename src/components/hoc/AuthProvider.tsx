@@ -1,46 +1,19 @@
-import { createContext, useState } from 'react';
+import { createContext, useReducer } from 'react';
+import reducer from '../../utils/reducer';
+import { Action, Props, User } from '../../utils/types';
 
-type Props = {
-  children: JSX.Element;
-};
-
-type ValueType = {
-  username: string | null;
-  login: string | null;
-  password: string | null;
-  signUp: (user: string | null, callback: () => void) => void;
-  signIn: (newUser: string | null, callback: () => void) => void;
-  signOut: (callback: () => void) => void;
-};
-
-export const AuthContext = createContext<ValueType>({
+const initialUserData = {
   username: null,
   login: null,
   password: null,
-  signUp: () => {},
-  signIn: () => {},
-  signOut: () => {},
-});
+  token: null,
+  id: null,
+};
+
+export const AuthContext = createContext<[User, React.Dispatch<Action>]>(null!);
 
 export function AuthProvider({ children }: Props): JSX.Element {
-  const [username, setUser] = useState<string | null>(null);
-  const [login, setLogin] = useState<string | null>(null);
-  const [password, setPassword] = useState<string | null>(null);
+  const [state, dispatch] = useReducer(reducer, initialUserData);
 
-  const signUp = (user: string | null, callback: () => void) => {
-    setUser(user);
-    callback();
-  };
-  const signIn = (newUser: string | null, callback: () => void) => {
-    setUser(newUser);
-    callback();
-  };
-  const signOut = (callback: () => void) => {
-    setUser(null);
-    callback();
-  };
-
-  const value: ValueType = { username, login, password, signUp, signIn, signOut };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={[state, dispatch]}>{children}</AuthContext.Provider>;
 }
