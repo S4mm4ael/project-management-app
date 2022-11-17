@@ -1,11 +1,16 @@
 import { FormEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { loginUser } from '../../utils/fetch';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { getUsers, loginUser } from '../../utils/fetch';
+import { User } from '../../utils/types';
 import { useAuth } from '../hook/useAuth';
 
 function LoginPage() {
   const [state, dispatch] = useAuth();
   const navigate = useNavigate();
+  let token = localStorage.getItem('token');
+  if (token) {
+    return <Navigate to="/main" />;
+  }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -13,18 +18,33 @@ function LoginPage() {
     const login = form.login.value;
     const password = form.password.value;
     const body = { login: login, password: password };
-    const response = await loginUser(body);
+    if (token === null) {
+      const response = await loginUser(body);
+      localStorage.setItem('token', response.token);
+      token = response.token;
+    }
     dispatch({
-      type: 'loginUser',
+      type: 'user',
       data: {
-        username: state.username || null,
+        username: state.username,
         login: login,
-        password: password,
-        token: response.token,
-        id: state.id || null,
+        token: token,
+        id: state.id,
       },
     });
-    navigate('/');
+    /*const responseAllUsers = await getUsers(response.token);
+    const thisUserData = responseAllUsers.filter((user: User) => user.login === login);
+    console.log(thisUserData[0].name);
+    dispatch({
+      type: 'user',
+      data: {
+        username: state.username || thisUserData[0].name,
+        login: login,
+        token: response.token,
+        id: state.id || thisUserData[0]._id,
+      },
+    });*/
+    navigate('/main');
   }
 
   return (
@@ -38,7 +58,7 @@ function LoginPage() {
         </label>
         <label>
           Password:
-          <input name="password" />
+          <input name="password" type="password" />
         </label>
         <button type="submit">Login</button>
       </form>

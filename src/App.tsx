@@ -4,6 +4,7 @@ import { AuthProvider } from './components/hoc/AuthProvider';
 import RequireAuth from './components/hoc/RequireAuth';
 import { LoginPage } from './components/LoginPage/LoginPage';
 import MainPage from './components/MainPage/MainPage';
+import ProfilePage from './components/ProfilePage/ProfilePage';
 import { RegistrationPage } from './components/RegistrationPage/RegistrationPage';
 import WelcomePage from './components/WelcomePage/WelcomePage';
 
@@ -20,6 +21,14 @@ function App() {
             element={
               <RequireAuth>
                 <MainPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <RequireAuth>
+                <ProfilePage />
               </RequireAuth>
             }
           />

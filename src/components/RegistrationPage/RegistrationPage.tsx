@@ -16,11 +16,10 @@ export function RegistrationPage() {
     const body = { name: name, login: login, password: password };
     const response = await createUser(body);
     dispatch({
-      type: 'createUser',
+      type: 'user',
       data: {
         username: name,
         login: login,
-        password: password,
         token: null,
         id: response._id,
       },
@@ -42,7 +41,7 @@ export function RegistrationPage() {
         </label>
         <label>
           Password:
-          <input name="password" />
+          <input name="password" type="password" />
         </label>
         <button type="submit">Create account</button>
       </form>

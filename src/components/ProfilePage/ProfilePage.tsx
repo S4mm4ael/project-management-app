@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hook/useAuth';
 
-function MainPage() {
+function ProfilePage() {
   const [state, dispatch] = useAuth();
 
-  function handleLogOut() {
+  function handleClick() {
     localStorage.removeItem('token');
     dispatch({
       type: 'user',
@@ -19,13 +19,13 @@ function MainPage() {
 
   return (
     <>
-      <div>Main Page</div>
-      <Link to="/profile">
-        <button>Edit Profile</button>
+      <div>Profile Page</div>
+      <Link to="/main">
+        <button>Main page</button>
       </Link>
-      <button onClick={handleLogOut}>Log out</button>
+      <button onClick={handleClick}>Log out</button>
     </>
   );
 }
 
-export default MainPage;
+export default ProfilePage;

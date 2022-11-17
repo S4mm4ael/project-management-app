@@ -5,8 +5,8 @@ import { useAuth } from '../hook/useAuth';
 function RequireAuth({ children }: Props): JSX.Element {
   const location = useLocation();
   const auth = useAuth();
-
-  if (!auth[0].token) {
+  const token = localStorage.getItem('token');
+  if (!token) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 

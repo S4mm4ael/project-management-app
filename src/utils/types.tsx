@@ -1,13 +1,12 @@
 export type User = {
   username: string | null;
   login: string | null;
-  password: string | null;
   token: string | null;
   id: string | null;
 };
 
 export type Action = {
-  type: 'createUser' | 'loginUser';
+  type: 'user';
   data: User;
 };
 
