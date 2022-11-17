@@ -1,7 +1,6 @@
 import { FormEvent } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { getUsers, loginUser } from '../../utils/fetch';
-import { User } from '../../utils/types';
+import { loginUser } from '../../utils/fetch';
 import { useAuth } from '../hook/useAuth';
 
 function LoginPage() {
@@ -32,18 +31,6 @@ function LoginPage() {
         id: state.id,
       },
     });
-    /*const responseAllUsers = await getUsers(response.token);
-    const thisUserData = responseAllUsers.filter((user: User) => user.login === login);
-    console.log(thisUserData[0].name);
-    dispatch({
-      type: 'user',
-      data: {
-        username: state.username || thisUserData[0].name,
-        login: login,
-        token: response.token,
-        id: state.id || thisUserData[0]._id,
-      },
-    });*/
     navigate('/main');
   }
 

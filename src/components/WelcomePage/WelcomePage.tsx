@@ -36,9 +36,6 @@ function WelcomePage() {
   return (
     <>
       <nav>
-        <Link to="/login">
-          <button>Sign In</button>
-        </Link>
         <button onClick={handleLogOut}>Log Out</button>
       </nav>
       <div>Welcome Page</div>
