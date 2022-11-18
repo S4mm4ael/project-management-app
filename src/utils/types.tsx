@@ -24,3 +24,9 @@ export type LoginInputs = {
   login: string;
   password: string;
 }
+
+export type RegistrationInputs = {
+  name: string;
+  login: string;
+  password: string;
+}

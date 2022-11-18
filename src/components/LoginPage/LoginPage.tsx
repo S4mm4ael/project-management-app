@@ -63,7 +63,7 @@ function LoginPage() {
               minLength: { value: 6, message: 'Password is too short' },
               maxLength: { value: 25, message: 'Password is too long' },
               pattern: {
-                value: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,25}$/,
+                value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,25}/,
                 message:
                   'Password should contain at least one special character (!@#$%^&*), digit and letter',
               },
