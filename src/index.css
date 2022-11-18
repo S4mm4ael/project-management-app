@@ -24,3 +24,22 @@ a:visited{
   color: #000;
 }
 a:hover{color: #7795CA;}
+button{
+  border: none;
+  border-radius: 10px;
+  min-width: 100px;
+  min-height: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  transition: 0.3s;
+  
+}
+button:hover{
+  transform: scale(1.05);
+  filter: drop-shadow(5px 5px 5px #222);
+}
+.lang{
+  cursor: pointer;
+  background-color: #000;
+}
