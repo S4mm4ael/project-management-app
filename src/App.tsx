@@ -1,25 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import { AuthProvider } from './components/hoc/AuthProvider';
+import RequireAuth from './components/hoc/RequireAuth';
+import { LoginPage } from './components/LoginPage/LoginPage';
+import MainPage from './components/MainPage/MainPage';
+import ProfilePage from './components/ProfilePage/ProfilePage';
+import { RegistrationPage } from './components/RegistrationPage/RegistrationPage';
+import WelcomePage from './components/WelcomePage/WelcomePage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<WelcomePage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegistrationPage />} />
+          <Route
+            path="main"
+            element={
+              <RequireAuth>
+                <MainPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <RequireAuth>
+                <ProfilePage />
+              </RequireAuth>
+            }
+          />
+        </Routes>
+      </AuthProvider>
+    </>
   );
 }
 
