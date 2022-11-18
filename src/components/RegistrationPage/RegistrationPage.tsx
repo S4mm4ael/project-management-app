@@ -39,6 +39,7 @@ export function RegistrationPage() {
           Name:
           <input
             {...register('name', {
+              required: 'Name is required',
               minLength: { value: 2, message: 'Name is too short' },
               maxLength: { value: 20, message: 'Name is too long' },
               pattern: {
@@ -47,6 +48,7 @@ export function RegistrationPage() {
               },
             })}
           />
+          {errors.name && <p>{errors.name.message}</p>}
         </label>
         <label>
           Login:
@@ -57,12 +59,14 @@ export function RegistrationPage() {
               minLength: { value: 3, message: 'Login is too short' },
             })}
           />
+          {errors.login && <p>{errors.login.message}</p>}
         </label>
         <label>
           Password:
           <input
             type="password"
             {...register('password', {
+              required: 'Password is required',
               minLength: { value: 6, message: 'Password is too short' },
               maxLength: { value: 25, message: 'Password is too long' },
               pattern: {
@@ -72,6 +76,7 @@ export function RegistrationPage() {
               },
             })}
           />
+          {errors.password && <p>{errors.password.message}</p>}
         </label>
         <button type="submit">Create account</button>
       </form>

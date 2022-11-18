@@ -53,12 +53,14 @@ function LoginPage() {
               minLength: { value: 3, message: 'Login is too short' },
             })}
           />
+          {errors.login && <p>{errors.login.message}</p>}
         </label>
         <label>
           Password:
           <input
             type="password"
             {...register('password', {
+              required: 'Password is required',
               minLength: { value: 6, message: 'Password is too short' },
               maxLength: { value: 25, message: 'Password is too long' },
               pattern: {
@@ -68,6 +70,7 @@ function LoginPage() {
               },
             })}
           />
+          {errors.password && <p>{errors.password.message}</p>}
         </label>
         <button type="submit">Login</button>
       </form>
