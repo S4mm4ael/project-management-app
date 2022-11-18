@@ -19,3 +19,8 @@ export type Body = {
   login?: string;
   password?: string;
 };
+
+export type LoginInputs = {
+  login: string;
+  password: string;
+}
