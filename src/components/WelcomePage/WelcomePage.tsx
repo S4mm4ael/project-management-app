@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
 import { useAuth } from '../hook/useAuth';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 function WelcomePage() {
   const token = localStorage.getItem('token');
@@ -20,15 +21,9 @@ function WelcomePage() {
   if (!token) {
     return (
       <>
-        <nav>
-          <Link to="/login">
-            <button>Sign In</button>
-          </Link>
-          <Link to="/register">
-            <button>Sign Up</button>
-          </Link>
-        </nav>
+        <Header />
         <div>Welcome Page</div>
+        <Footer />
       </>
     );
   }
