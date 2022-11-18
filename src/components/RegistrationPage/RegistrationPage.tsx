@@ -1,4 +1,3 @@
-import { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../utils/fetch';
 import { useAuth } from '../hook/useAuth';
