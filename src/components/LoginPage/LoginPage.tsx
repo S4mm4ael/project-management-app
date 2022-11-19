@@ -3,6 +3,7 @@ import { loginUser } from '../../utils/fetch';
 import { useAuth } from '../hook/useAuth';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { LoginInputs } from '../../utils/types';
+import { useState } from 'react';
 
 function LoginPage() {
   const [state, dispatch] = useAuth();
@@ -12,6 +13,7 @@ function LoginPage() {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginInputs>();
+  const [responseError, setResponseError] = useState('');
 
   let token = localStorage.getItem('token');
   if (token) {
@@ -23,20 +25,27 @@ function LoginPage() {
     const password = data.password;
     const body = { login: login, password: password };
     if (token === null) {
-      const response = await loginUser(body);
-      localStorage.setItem('token', response.token);
-      token = response.token;
+      try {
+        const response = await loginUser(body);
+        localStorage.setItem('token', response.token);
+        token = response.token;
+        if (response.status !== 200) {
+          throw new Error(`Something went wrong... Error code: ${response.status}`);
+        }
+        dispatch({
+          type: 'user',
+          data: {
+            username: state.username,
+            login: login,
+            token: token,
+            id: state.id,
+          },
+        });
+        navigate('/main');
+      } catch (error) {
+        setResponseError('Wrong login or password');
+      }
     }
-    dispatch({
-      type: 'user',
-      data: {
-        username: state.username,
-        login: login,
-        token: token,
-        id: state.id,
-      },
-    });
-    navigate('/main');
   };
 
   return (
@@ -49,8 +58,6 @@ function LoginPage() {
           <input
             {...register('login', {
               required: 'Login is required',
-              maxLength: { value: 20, message: 'Login is too long' },
-              minLength: { value: 3, message: 'Login is too short' },
             })}
           />
           {errors.login && <p>{errors.login.message}</p>}
@@ -61,18 +68,12 @@ function LoginPage() {
             type="password"
             {...register('password', {
               required: 'Password is required',
-              minLength: { value: 6, message: 'Password is too short' },
-              maxLength: { value: 25, message: 'Password is too long' },
-              pattern: {
-                value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,25}/,
-                message:
-                  'Password should contain at least one special character (!@#$%^&*), digit and letter',
-              },
             })}
           />
           {errors.password && <p>{errors.password.message}</p>}
         </label>
         <button type="submit">Login</button>
+        {responseError && <p>{responseError}</p>}
       </form>
     </>
   );
