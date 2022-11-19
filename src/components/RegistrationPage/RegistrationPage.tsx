@@ -3,6 +3,7 @@ import { createUser } from '../../utils/fetch';
 import { useAuth } from '../hook/useAuth';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { RegistrationInputs } from '../../utils/types';
+import { useState } from 'react';
 
 export function RegistrationPage() {
   const [state, dispatch] = useAuth();
@@ -12,23 +13,31 @@ export function RegistrationPage() {
     handleSubmit,
     formState: { errors },
   } = useForm<RegistrationInputs>();
+  const [responseError, setResponseError] = useState('');
 
   const onSubmit: SubmitHandler<RegistrationInputs> = async (data) => {
     const name = data.name;
     const login = data.login;
     const password = data.password;
     const body = { name: name, login: login, password: password };
-    const response = await createUser(body);
-    dispatch({
-      type: 'user',
-      data: {
-        username: name,
-        login: login,
-        token: null,
-        id: response._id,
-      },
-    });
-    navigate('/login');
+    try {
+      const response = await createUser(body);
+      if (response.status > 399) {
+        throw new Error(`Something went wrong... Error code: ${response.status}`);
+      }
+      dispatch({
+        type: 'user',
+        data: {
+          username: name,
+          login: login,
+          token: null,
+          id: response._id,
+        },
+      });
+      navigate('/login');
+    } catch (error) {
+      setResponseError('User with this login already exists');
+    }
   };
 
   return (
@@ -80,6 +89,7 @@ export function RegistrationPage() {
         </label>
         <button type="submit">Create account</button>
       </form>
+      {responseError && <p>{responseError}</p>}
     </>
   );
 }

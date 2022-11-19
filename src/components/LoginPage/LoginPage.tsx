@@ -41,7 +41,6 @@ function LoginPage() {
             id: state.id,
           },
         });
-        navigate('/main');
       } catch (error) {
         setResponseError('Wrong login or password');
       }
