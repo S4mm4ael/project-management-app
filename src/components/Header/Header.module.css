@@ -25,3 +25,10 @@ nav{
 .sign__up{
   background-color: #99A33B ;
 }
+.lang{
+  cursor: pointer;
+  transition: .3s;
+}
+.lang:hover{
+transform: scale(1.1);
+}

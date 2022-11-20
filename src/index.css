@@ -25,6 +25,7 @@ a:visited{
 }
 a:hover{color: #7795CA;}
 button{
+  cursor: pointer;
   border: none;
   border-radius: 10px;
   min-width: 100px;
