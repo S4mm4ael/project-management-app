@@ -1,0 +1,68 @@
+
+.welcome__section{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 0 40px;
+}
+.welcome__top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.welcome__img{
+  height: 450px;
+}
+.welcome__left{
+  width: 660px;
+}
+.welcome__right{
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+.button__container{
+    display: flex;
+    margin-top: 20px;
+    gap: 10px;
+    justify-content: end;
+}
+.sign__in{
+    background-color: #7795CA ;
+}
+.sign__up{
+    background-color: #99A33B ;
+}
+h1{
+  text-align: end;
+}
+h3{
+  font-weight: 1000;
+}
+article{
+  width: 500px;
+  text-align: justify;
+  line-height: 30px;
+}
+.team{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.team__left{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+ 
+}
+.team__item{
+  display: flex;
+  line-height: 30px;
+  gap: 20px;
+}
+
+.team__text{
+  width: 420px;
+}
