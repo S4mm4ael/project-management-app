@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hook/useAuth';
 
 function ProfilePage() {
   const [state, dispatch] = useAuth();
+  const navigate = useNavigate();
 
   function handleClick() {
     localStorage.removeItem('token');
@@ -15,6 +16,7 @@ function ProfilePage() {
         id: null,
       },
     });
+    navigate('/');
   }
 
   return (
