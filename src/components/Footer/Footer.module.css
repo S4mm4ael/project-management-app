@@ -1,0 +1,10 @@
+.footer__wrapper {
+  display: flex;
+  height: 80px;
+  padding: 0 40px;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 1rem;
+  align-items: center;
+}
