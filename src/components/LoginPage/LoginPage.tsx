@@ -1,9 +1,9 @@
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { loginUser } from '../../utils/fetch';
+import { getUsers, loginUser } from '../../utils/fetch';
 import { useAuth } from '../hook/useAuth';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { LoginInputs } from '../../utils/types';
-import { useState } from 'react';
+import { LoginInputs, User } from '../../utils/types';
+import { useEffect, useState } from 'react';
 
 function LoginPage() {
   const [state, dispatch] = useAuth();
@@ -24,6 +24,7 @@ function LoginPage() {
     const login = data.login;
     const password = data.password;
     const body = { login: login, password: password };
+    let thisUserData = [];
     if (token === null) {
       try {
         const response = await loginUser(body);
@@ -32,20 +33,38 @@ function LoginPage() {
         if (response.status !== 200) {
           throw new Error(`Something went wrong... Error code: ${response.status}`);
         }
-        dispatch({
-          type: 'user',
-          data: {
-            username: state.username,
-            login: login,
-            token: token,
-            id: state.id,
-          },
-        });
       } catch (error) {
         setResponseError('Wrong login or password');
       }
     }
+    try {
+      const token = localStorage.getItem('token');
+      const responseAllUsers = await getUsers(token);
+      thisUserData = responseAllUsers.filter((user: User) => user.login === login);
+      console.log(thisUserData[0]);
+      localStorage.setItem('name', thisUserData[0].name);
+      localStorage.setItem('login', thisUserData[0].login);
+      localStorage.setItem('id', thisUserData[0]._id);
+      if (responseAllUsers.status !== 200) {
+        throw new Error(`Something went wrong... Error code: ${responseAllUsers.status}`);
+      }
+    } catch (error) {
+      setResponseError('Wrong login or password');
+    }
+    dispatch({
+      type: 'user',
+      data: {
+        username: thisUserData[0].name,
+        login: thisUserData[0].login,
+        token: localStorage.getItem('token'),
+        id: thisUserData[0]._id,
+      },
+    });
   };
+
+  function getState() {
+    console.log(state);
+  }
 
   return (
     <>
@@ -74,6 +93,7 @@ function LoginPage() {
         <button type="submit">Login</button>
         {responseError && <p>{responseError}</p>}
       </form>
+      <button onClick={getState}>State</button>
     </>
   );
 }

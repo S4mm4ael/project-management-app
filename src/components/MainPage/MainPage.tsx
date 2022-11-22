@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { clearLocalStorage } from '../../utils/utils';
 import { useAuth } from '../hook/useAuth';
 
 function MainPage() {
@@ -6,7 +7,7 @@ function MainPage() {
   const navigate = useNavigate();
 
   function handleLogOut() {
-    localStorage.removeItem('token');
+    clearLocalStorage();
     dispatch({
       type: 'user',
       data: {

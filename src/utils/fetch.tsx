@@ -66,3 +66,24 @@ export async function getUsers(token: string | null) {
     console.log(error);
   }
 }
+
+export async function putUser(id: string | null) {
+  try {
+    const response = await fetch(`${url}/users`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${id}`,
+      },
+    });
+    if (response.status === 200) {
+      const user = await response.json();
+      return user;
+    }
+    if (response.status !== 200) {
+      throw new Error(`Something went wrong... Error code: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
