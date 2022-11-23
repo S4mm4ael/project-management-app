@@ -45,24 +45,28 @@ function LoginPage() {
       localStorage.setItem('name', thisUserData[0].name);
       localStorage.setItem('login', thisUserData[0].login);
       localStorage.setItem('id', thisUserData[0]._id);
-      if (responseAllUsers.status !== 200) {
+      if (responseAllUsers.status > 399) {
         throw new Error(`Something went wrong... Error code: ${responseAllUsers.status}`);
       }
+      dispatch({
+        type: 'user',
+        data: {
+          username: thisUserData[0].name,
+          login: thisUserData[0].login,
+          token: localStorage.getItem('token'),
+          id: thisUserData[0]._id,
+        },
+      });
     } catch (error) {
       setResponseError('Wrong login or password');
     }
-    dispatch({
-      type: 'user',
-      data: {
-        username: thisUserData[0].name,
-        login: thisUserData[0].login,
-        token: localStorage.getItem('token'),
-        id: thisUserData[0]._id,
-      },
-    });
   };
 
-  function getState() {
+  async function getState() {
+    const responseAllUsers = await getUsers(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzRjM2YzN2U3NWMxZWZmMDFkZjQ3MCIsImxvZ2luIjoiS2ltIiwiaWF0IjoxNjY5MjI3MTAyLCJleHAiOjE2NjkyNzAzMDJ9.kuPkQpMIZZr-21KNnNy3qpkSMMYsVd2IDTX4qrPDIJQ'
+    );
+    console.log(responseAllUsers);
     console.log(state);
   }
 

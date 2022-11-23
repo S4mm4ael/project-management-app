@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { createUser, getUsers, putUser } from '../../utils/fetch';
+import { getUsers, loginUser, putUser } from '../../utils/fetch';
 import { RegistrationInputs, User } from '../../utils/types';
 import { clearLocalStorage } from '../../utils/utils';
 import { useAuth } from '../hook/useAuth';
+import styles from './Profile.module.css';
 
 function ProfilePage() {
   const [state, dispatch] = useAuth();
@@ -51,22 +52,27 @@ function ProfilePage() {
     const password = data.password;
     const body = { name: name, login: login, password: password };
     try {
-      const response = await putUser('1');
+      const response = await putUser(state.id, state.token, body);
       if (response.status > 399) {
         throw new Error(`Something went wrong... Error code: ${response.status}`);
+      }
+      const responseToken = await loginUser({ login, password });
+      if (responseToken.status > 399) {
+        throw new Error(`Something went wrong... Error code: ${responseToken.status}`);
       }
       dispatch({
         type: 'user',
         data: {
           username: name,
           login: login,
-          token: null,
+          token: responseToken.token,
           id: response._id,
         },
       });
+      localStorage.setItem('token', responseToken.token);
       navigate('/login');
     } catch (error) {
-      setResponseError('User with this login already exists');
+      setResponseError('Error');
     }
   };
 
@@ -79,7 +85,8 @@ function ProfilePage() {
       </Link>
       <button onClick={handleLogOut}>Log out</button>
       <button onClick={handleDeleteAccount}>Delete account</button>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        Current name: {state.username}
         <label>
           Name:
           <input
@@ -95,6 +102,7 @@ function ProfilePage() {
           />
           {errors.name && <p>{errors.name.message}</p>}
         </label>
+        Current login: {state.login}
         <label>
           Login:
           <input

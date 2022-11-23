@@ -1,4 +1,4 @@
-import { Body } from './types';
+import { Body, User } from './types';
 
 const url = 'https://final-task-backend-production-e4cb.up.railway.app';
 
@@ -67,14 +67,15 @@ export async function getUsers(token: string | null) {
   }
 }
 
-export async function putUser(id: string | null) {
+export async function putUser(id: string | null, token: string | null, body: Body) {
   try {
-    const response = await fetch(`${url}/users`, {
+    const response = await fetch(`${url}/users/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${id}`,
+        Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(body),
     });
     if (response.status === 200) {
       const user = await response.json();

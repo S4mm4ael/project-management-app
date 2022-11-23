@@ -6,13 +6,14 @@ import welcome from '../../assets/img/welcome-left.png';
 import team from '../../assets/img/team-right.png';
 import dasha from '../../assets/img/dasha.png';
 import sam from '../../assets/img/sam.png';
+import { clearLocalStorage } from '../../utils/utils';
 
 function WelcomePage() {
   const token = localStorage.getItem('token');
   const [state, dispatch] = useAuth();
 
   function handleLogOut() {
-    localStorage.removeItem('token');
+    clearLocalStorage();
     dispatch({
       type: 'user',
       data: {
