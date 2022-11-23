@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { getUsers, loginUser, putUser } from '../../utils/fetch';
+import { deleteUser, getUsers, loginUser, putUser } from '../../utils/fetch';
 import { RegistrationInputs, User } from '../../utils/types';
-import { clearLocalStorage } from '../../utils/utils';
+import { clearLocalStorage, setLocalStorage } from '../../utils/utils';
 import { useAuth } from '../hook/useAuth';
 import styles from './Profile.module.css';
 
@@ -42,8 +42,16 @@ function ProfilePage() {
     console.log(state);
   }
 
-  function handleDeleteAccount() {
-    console.log('delete');
+  async function handleDeleteAccount() {
+    try {
+      const response = await deleteUser(state.id, state.token);
+      if (response.status !== 399) {
+        throw new Error(`Something went wrong... Error code: ${response.status}`);
+      }
+      handleLogOut();
+    } catch (error) {
+      setResponseError('Error');
+    }
   }
 
   const onSubmit: SubmitHandler<RegistrationInputs> = async (data) => {
@@ -66,10 +74,10 @@ function ProfilePage() {
           username: name,
           login: login,
           token: responseToken.token,
-          id: response._id,
+          id: state.id,
         },
       });
-      localStorage.setItem('token', responseToken.token);
+      setLocalStorage(responseToken.token, name, login, response._id);
       navigate('/login');
     } catch (error) {
       setResponseError('Error');
