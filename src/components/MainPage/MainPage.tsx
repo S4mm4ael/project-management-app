@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import Boards from '../Boards/Boards';
 import { useAuth } from '../hook/useAuth';
 
 function MainPage() {
@@ -26,6 +27,9 @@ function MainPage() {
         <button>Edit Profile</button>
       </Link>
       <button onClick={handleLogOut}>Log out</button>
+      <section className="boards__section">
+        <Boards />
+      </section>
     </>
   );
 }
