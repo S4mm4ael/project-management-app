@@ -30,3 +30,9 @@ export type RegistrationInputs = {
   login: string;
   password: string;
 }
+
+export type PropsModal = {
+  active: boolean;
+  setActive: (value: boolean) => void;
+  setError: (velue: string) => void;
+};

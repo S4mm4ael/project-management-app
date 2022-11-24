@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { deleteUser, getUsers, loginUser, putUser } from '../../utils/fetch';
-import { RegistrationInputs, User } from '../../utils/types';
+import { loginUser, putUser } from '../../utils/fetch';
+import { RegistrationInputs } from '../../utils/types';
 import { clearLocalStorage, setLocalStorage } from '../../utils/utils';
 import { useAuth } from '../hook/useAuth';
+import { Modal } from '../Modal/Modal';
 import styles from './Profile.module.css';
 
 function ProfilePage() {
@@ -16,13 +17,7 @@ function ProfilePage() {
     formState: { errors },
   } = useForm<RegistrationInputs>();
   const [responseError, setResponseError] = useState('');
-
-  async function getUserData() {
-    const token = localStorage.getItem('token');
-    const responseAllUsers = await getUsers(token);
-    const thisUserData = responseAllUsers.filter((user: User) => user.token === token);
-    console.log(state);
-  }
+  const [activeModal, setActiveModal] = useState<boolean>(false);
 
   function handleLogOut() {
     clearLocalStorage();
@@ -36,22 +31,6 @@ function ProfilePage() {
       },
     });
     navigate('/');
-  }
-
-  function getState() {
-    console.log(state);
-  }
-
-  async function handleDeleteAccount() {
-    try {
-      const response = await deleteUser(state.id, state.token);
-      if (response.status !== 399) {
-        throw new Error(`Something went wrong... Error code: ${response.status}`);
-      }
-      handleLogOut();
-    } catch (error) {
-      setResponseError('Error');
-    }
   }
 
   const onSubmit: SubmitHandler<RegistrationInputs> = async (data) => {
@@ -84,7 +63,10 @@ function ProfilePage() {
     }
   };
 
-  getUserData();
+  function changeActive() {
+    setActiveModal(!activeModal);
+  }
+
   return (
     <>
       <div>Profile Page</div>
@@ -92,7 +74,7 @@ function ProfilePage() {
         <button>Main page</button>
       </Link>
       <button onClick={handleLogOut}>Log out</button>
-      <button onClick={handleDeleteAccount}>Delete account</button>
+      <button onClick={changeActive}>Delete account</button>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         Current name: {state.username}
         <label>
@@ -142,7 +124,7 @@ function ProfilePage() {
         <button type="submit">Change user data</button>
       </form>
       {responseError && <p>{responseError}</p>}
-      <button onClick={getState}>State</button>
+      <Modal active={activeModal} setActive={setActiveModal} setError={setResponseError} />
     </>
   );
 }

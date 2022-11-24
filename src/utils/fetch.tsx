@@ -1,4 +1,4 @@
-import { Body, User } from './types';
+import { Body } from './types';
 
 const url = 'https://final-task-backend-production-e4cb.up.railway.app';
 

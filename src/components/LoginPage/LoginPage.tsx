@@ -1,13 +1,12 @@
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { getUsers, loginUser } from '../../utils/fetch';
 import { useAuth } from '../hook/useAuth';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { LoginInputs, User } from '../../utils/types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function LoginPage() {
-  const [state, dispatch] = useAuth();
-  const navigate = useNavigate();
+  const [, dispatch] = useAuth();
   const {
     register,
     handleSubmit,
@@ -62,14 +61,6 @@ function LoginPage() {
     }
   };
 
-  async function getState() {
-    const responseAllUsers = await getUsers(
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzRjM2YzN2U3NWMxZWZmMDFkZjQ3MCIsImxvZ2luIjoiS2ltIiwiaWF0IjoxNjY5MjI3MTAyLCJleHAiOjE2NjkyNzAzMDJ9.kuPkQpMIZZr-21KNnNy3qpkSMMYsVd2IDTX4qrPDIJQ'
-    );
-    console.log(responseAllUsers);
-    console.log(state);
-  }
-
   return (
     <>
       <div>Login page</div>
@@ -97,7 +88,6 @@ function LoginPage() {
         <button type="submit">Login</button>
         {responseError && <p>{responseError}</p>}
       </form>
-      <button onClick={getState}>State</button>
     </>
   );
 }
