@@ -7,7 +7,7 @@ import Header from '../Header/Header';
 function MainPage() {
   return (
     <ChakraProvider theme={theme}>
-      <Header logged={true} />
+      <Header />
 
       <section className="boards__section">
         <Boards />

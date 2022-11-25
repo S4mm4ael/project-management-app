@@ -5,7 +5,7 @@ import logo from '../../assets/img/Logo.png';
 import langchange from '../../assets/img/Langchange.png';
 import { useAuth } from '../hook/useAuth';
 
-function Header({ logged = false }) {
+function Header() {
   const [state, dispatch] = useAuth();
   const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ function Header({ logged = false }) {
           <div className={styles.nav__wrapper}>
             <img className={styles.lang} src={langchange} alt="choose lang" />
             <nav>
-              {logged ? (
+              {localStorage.getItem('token') ? (
                 <Link to="/profile">
                   <button className={styles.sign__in}>Edit Profile</button>
                 </Link>
@@ -42,7 +42,7 @@ function Header({ logged = false }) {
                   <button className={styles.sign__in}>Sign In</button>
                 </Link>
               )}
-              {logged ? (
+              {localStorage.getItem('token') ? (
                 <button className={styles.sign__up} onClick={handleLogOut}>
                   Log out
                 </button>
