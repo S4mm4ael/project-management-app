@@ -25,6 +25,9 @@ nav{
 .sign__up{
   background-color: #99A33B ;
 }
+.sign__out{
+  background-color: #F7C955 ;
+}
 .lang{
   cursor: pointer;
   transition: .3s;

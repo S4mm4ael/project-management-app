@@ -1,13 +1,12 @@
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { loginUser } from '../../utils/fetch';
+import { Link, Navigate } from 'react-router-dom';
+import { getUsers, loginUser } from '../../utils/fetch';
 import { useAuth } from '../hook/useAuth';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { LoginInputs } from '../../utils/types';
+import { LoginInputs, User } from '../../utils/types';
 import { useState } from 'react';
 
 function LoginPage() {
-  const [state, dispatch] = useAuth();
-  const navigate = useNavigate();
+  const [, dispatch] = useAuth();
   const {
     register,
     handleSubmit,
@@ -24,6 +23,7 @@ function LoginPage() {
     const login = data.login;
     const password = data.password;
     const body = { login: login, password: password };
+    let thisUserData = [];
     if (token === null) {
       try {
         const response = await loginUser(body);
@@ -32,18 +32,32 @@ function LoginPage() {
         if (response.status !== 200) {
           throw new Error(`Something went wrong... Error code: ${response.status}`);
         }
-        dispatch({
-          type: 'user',
-          data: {
-            username: state.username,
-            login: login,
-            token: token,
-            id: state.id,
-          },
-        });
       } catch (error) {
         setResponseError('Wrong login or password');
       }
+    }
+    try {
+      const token = localStorage.getItem('token');
+      const responseAllUsers = await getUsers(token);
+      thisUserData = responseAllUsers.filter((user: User) => user.login === login);
+      console.log(thisUserData[0]);
+      localStorage.setItem('name', thisUserData[0].name);
+      localStorage.setItem('login', thisUserData[0].login);
+      localStorage.setItem('id', thisUserData[0]._id);
+      if (responseAllUsers.status > 399) {
+        throw new Error(`Something went wrong... Error code: ${responseAllUsers.status}`);
+      }
+      dispatch({
+        type: 'user',
+        data: {
+          username: thisUserData[0].name,
+          login: thisUserData[0].login,
+          token: localStorage.getItem('token'),
+          id: thisUserData[0]._id,
+        },
+      });
+    } catch (error) {
+      setResponseError('Wrong login or password');
     }
   };
 

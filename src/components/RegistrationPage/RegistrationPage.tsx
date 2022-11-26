@@ -39,6 +39,9 @@ export function RegistrationPage() {
       setResponseError('User with this login already exists');
     }
   };
+  function getState() {
+    console.log(state);
+  }
 
   return (
     <>
@@ -90,6 +93,7 @@ export function RegistrationPage() {
         <button type="submit">Create account</button>
       </form>
       {responseError && <p>{responseError}</p>}
+      <button onClick={getState}>State</button>
     </>
   );
 }
