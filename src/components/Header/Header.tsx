@@ -11,7 +11,6 @@ function Header() {
 
   function handleLogOut() {
     clearLocalStorage();
-
     dispatch({
       type: 'user',
       data: {
