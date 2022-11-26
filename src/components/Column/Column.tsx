@@ -1,6 +1,6 @@
 import { AddIcon } from '@chakra-ui/icons';
 import { Badge, Box, Heading, IconButton, Stack, useColorModeValue } from '@chakra-ui/react';
-import useColumnDrop from '../../hook/useColumnDrop';
+import useColumnDrop from '../hook/useColumnDrop';
 import useColumnTasks from '../../components/hook/useColumnTasks';
 import { ColumnType } from '../../utils/enums';
 import Task from '../Task/Task';
