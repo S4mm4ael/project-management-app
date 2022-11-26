@@ -26,7 +26,7 @@ function WelcomePage() {
   if (!token) {
     return (
       <>
-        <Header logged={false} />
+        <Header />
         <section className={styles.welcome__section}>
           <div className={styles.welcome__top}>
             <div className={styles.welcome__left}>
