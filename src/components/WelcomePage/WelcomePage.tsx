@@ -5,9 +5,17 @@ import welcome from '../../assets/img/welcome-left.png';
 import team from '../../assets/img/team-right.png';
 import dasha from '../../assets/img/dasha.png';
 import sam from '../../assets/img/sam.png';
+import i18n from '../../i18n';
 import { useTranslation } from 'react-i18next';
 
 function WelcomePage() {
+  if (localStorage.getItem('lang')) {
+    const lang = localStorage.getItem('lang')?.toString();
+    i18n.changeLanguage(lang);
+  } else {
+    localStorage.setItem('lang', 'en');
+  }
+
   const { t } = useTranslation();
   return (
     <>
