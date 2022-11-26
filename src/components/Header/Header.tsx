@@ -5,19 +5,12 @@ import langchange from '../../assets/img/Langchange.png';
 import { clearLocalStorage } from '../../utils/utils';
 import { useAuth } from '../hook/useAuth';
 import { useTranslation } from 'react-i18next';
-<<<<<<< HEAD
 import i18n from '../../i18n';
-=======
->>>>>>> 644b465 (feat: translate header)
 
 function Header() {
   const token = localStorage.getItem('token');
   const [, dispatch] = useAuth();
-<<<<<<< HEAD
-  const { t } = useTranslation();
-=======
   const { t, i18n } = useTranslation();
->>>>>>> 644b465 (feat: translate header)
 
   function handleLogOut() {
     clearLocalStorage();
@@ -49,14 +42,10 @@ function Header() {
           </div>
           <div className={styles.nav__wrapper}>
             <img className={styles.lang} src={langchange} alt="choose lang" />
-<<<<<<< HEAD
             <select
               onChange={changeLangHandler}
               defaultValue={localStorage.getItem('lang') || 'en'}
             >
-=======
-            <select onChange={changeLangHandler}>
->>>>>>> 644b465 (feat: translate header)
               <option value="en">English</option>
               <option value="ru">Русский</option>
             </select>
@@ -72,16 +61,11 @@ function Header() {
             )}
             {token && (
               <nav>
-<<<<<<< HEAD
                 <Link to="/profile">
                   <button className={styles.sign__in}>Edit Profile</button>
                 </Link>
-                <button className={styles.sign__up} onClick={handleLogOut}>
-                  Log out
-=======
                 <button className={styles.sign__out} onClick={handleLogOut}>
                   {t('Sign Out')}
->>>>>>> 644b465 (feat: translate header)
                 </button>
               </nav>
             )}
