@@ -5,11 +5,12 @@ import langchange from '../../assets/img/Langchange.png';
 import { clearLocalStorage } from '../../utils/utils';
 import { useAuth } from '../hook/useAuth';
 import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 
 function Header() {
   const token = localStorage.getItem('token');
   const [, dispatch] = useAuth();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   function handleLogOut() {
     clearLocalStorage();
@@ -41,7 +42,10 @@ function Header() {
           </div>
           <div className={styles.nav__wrapper}>
             <img className={styles.lang} src={langchange} alt="choose lang" />
-            <select onChange={changeLangHandler}>
+            <select
+              onChange={changeLangHandler}
+              defaultValue={localStorage.getItem('lang') || 'en'}
+            >
               <option value="en">English</option>
               <option value="ru">Русский</option>
             </select>
