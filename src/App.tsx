@@ -7,8 +7,15 @@ import MainPage from './components/MainPage/MainPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import { RegistrationPage } from './components/RegistrationPage/RegistrationPage';
 import WelcomePage from './components/WelcomePage/WelcomePage';
+import i18n from './i18n';
 
 function App() {
+  if (localStorage.getItem('lang')) {
+    const lang = localStorage.getItem('lang')?.toString();
+    i18n.changeLanguage(lang);
+  } else {
+    localStorage.setItem('lang', 'en');
+  }
   return (
     <>
       <AuthProvider>
