@@ -44,15 +44,15 @@ function Task({
         position="relative"
         rounded="lg"
         w={200}
-        pl={3}
-        pr={7}
+        pl={0}
+        pr={0}
         pt={3}
         pb={1}
         boxShadow="xl"
         cursor="grab"
         fontWeight="bold"
         userSelect="none"
-        bgColor={task.color}
+        bgImg={task.color}
         opacity={isDragging ? 0.5 : 1}
       >
         <IconButton
@@ -76,7 +76,7 @@ function Task({
           fontWeight="semibold"
           cursor="inherit"
           border="none"
-          p={0}
+          p={2}
           resize="none"
           minH={70}
           maxH={200}

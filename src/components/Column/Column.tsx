@@ -31,11 +31,28 @@ function Column({ column }: { column: ColumnType }) {
 
   return (
     <Box>
-      <Heading fontSize="md" mb={4} letterSpacing="wide">
-        <Badge px={2} py={1} rounded="lg" colorScheme={ColumnColorScheme[column]}>
-          {column}
-        </Badge>
-      </Heading>
+      <Stack
+        ref={dropRef}
+        display="flex"
+        justifyContent="s"
+        direction={{ base: 'row', md: 'column' }}
+        h={{ base: 300, md: 600 }}
+        p={4}
+        mt={2}
+        spacing={1}
+        bgColor="white"
+        rounded="lg"
+        boxShadow="md"
+        overflow="auto"
+        opacity={isOver ? 0.85 : 1}
+      >
+        <Heading fontSize="md" mb={4} letterSpacing="wide">
+          <Badge px={2} py={1} rounded="lg" colorScheme={ColumnColorScheme[column]}>
+            {column}
+          </Badge>
+        </Heading>
+        {ColumnTasks}
+      </Stack>
       <IconButton
         size="xs"
         w="full"
@@ -43,27 +60,14 @@ function Column({ column }: { column: ColumnType }) {
         bgColor={useColorModeValue('gray.100', 'gray.700')}
         _hover={{ bgColor: useColorModeValue('gray.200', 'gray.600') }}
         py={2}
+        mt={2}
         variant="solid"
         onClick={addEmptyTask}
         colorScheme="black"
         aria-label="add-task"
         icon={<AddIcon />}
-      />
-      <Stack
-        ref={dropRef}
-        direction={{ base: 'row', md: 'column' }}
-        h={{ base: 300, md: 600 }}
-        p={4}
-        mt={2}
-        spacing={4}
-        bgColor={useColorModeValue('gray.50', 'gray.900')}
-        rounded="lg"
         boxShadow="md"
-        overflow="auto"
-        opacity={isOver ? 0.85 : 1}
-      >
-        {ColumnTasks}
-      </Stack>
+      />
     </Box>
   );
 }

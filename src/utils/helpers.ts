@@ -1,8 +1,8 @@
-const colors = ['red', 'orange', 'yellow', 'green', 'teal', 'blue', 'cyan', 'purple', 'pink'];
+const colors = ['#7795CA', '#F7C955', '#99A33B'];
 
-export function pickChakraRandomColor(variant = '') {
+export function pickChakraRandomColor() {
   const color = colors[Math.floor(Math.random() * colors.length)];
-  return color + variant;
+  return `linear-gradient( rgba(255, 255, 255, 0) 0%, ${color} 100%)`;
 }
 
 export function swap<T>(arr: T[], i: number, j: number): T[] {

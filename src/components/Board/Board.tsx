@@ -8,18 +8,8 @@ import { ColumnType } from '../../utils/enums';
 function App() {
   return (
     <main>
-      <Heading
-        fontSize={{ base: '4xl', sm: '5xl', md: '6xl' }}
-        fontWeight="bold"
-        textAlign="center"
-        bgGradient="linear(to-l, #7928CA, #FF0080)"
-        bgClip="text"
-        mt={4}
-      >
-        Welcome to DnD Kanban
-      </Heading>
       <DndProvider backend={HTML5Backend}>
-        <Container maxWidth="container.lg" px={4} py={10}>
+        <Container maxWidth="container.lg" px={4} py={14}>
           <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 16, md: 4 }}>
             <Column column={ColumnType.TO_DO} />
             <Column column={ColumnType.IN_PROGRESS} />

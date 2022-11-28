@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '../../config/theme';
-import Boards from '../Boards/Boards';
+import Boards from '../Board/Board';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 
