@@ -1,16 +1,12 @@
-import { AddIcon } from '@chakra-ui/icons';
-import { Badge, Box, Heading, IconButton, Stack, useColorModeValue } from '@chakra-ui/react';
+import { AddIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
+import { Box, Heading, IconButton, Stack, useColorModeValue } from '@chakra-ui/react';
 import useColumnDrop from '../hook/useColumnDrop';
 import useColumnTasks from '../../components/hook/useColumnTasks';
 import { ColumnType } from '../../utils/enums';
 import Task from '../Task/Task';
-
-const ColumnColorScheme: Record<ColumnType, string> = {
-  Todo: 'gray',
-  'In Progress': 'blue',
-  Blocked: 'red',
-  Completed: 'green',
-};
+import { AutoResizeTextarea } from '../AutoResizeTextArea/AutoResizeTextArea';
+import { useState } from 'react';
+import style from './Column.module.css';
 
 function Column({ column }: { column: ColumnType }) {
   const { tasks, addEmptyTask, deleteTask, dropTaskFrom, swapTasks, updateTask } =
@@ -28,7 +24,20 @@ function Column({ column }: { column: ColumnType }) {
       onDelete={deleteTask}
     />
   ));
-
+  //
+  const [columnTitle, setColumnTitle] = useState(column.toString());
+  const [submitActive, setSubmitActive] = useState(false);
+  function showSubmit() {
+    setSubmitActive(true);
+  }
+  function handleCancelInput() {
+    setSubmitActive(false);
+  }
+  //TODO
+  function handleSubmitInput(e: React.MouseEvent<HTMLButtonElement>) {
+    setColumnTitle('+');
+    console.log(columnTitle);
+  }
   return (
     <Box>
       <Stack
@@ -46,10 +55,49 @@ function Column({ column }: { column: ColumnType }) {
         overflow="auto"
         opacity={isOver ? 0.85 : 1}
       >
-        <Heading fontSize="md" mb={4} letterSpacing="wide">
-          <Badge px={2} py={1} rounded="lg" colorScheme={ColumnColorScheme[column]}>
-            {column}
-          </Badge>
+        <Heading fontSize="md" letterSpacing="wide" position="relative">
+          <AutoResizeTextarea
+            id={column}
+            border="none"
+            fontWeight="bold"
+            px={2}
+            py={1}
+            rounded="lg"
+            fontSize="1.2rem"
+            onFocus={showSubmit}
+          >
+            {columnTitle}
+          </AutoResizeTextarea>
+          {submitActive && (
+            <div className={style.title__buttons}>
+              <IconButton
+                zIndex={100}
+                aria-label={column}
+                size="sm"
+                colorScheme="solid"
+                color="black"
+                icon={<CheckIcon />}
+                opacity={1}
+                _groupHover={{
+                  opacity: 1,
+                }}
+                onClick={(e) => handleSubmitInput(e)}
+              />
+              <IconButton
+                zIndex={100}
+                aria-label="cancel"
+                size="sm"
+                colorScheme="solid"
+                color="black"
+                icon={<CloseIcon />}
+                opacity={1}
+                _groupHover={{
+                  opacity: 1,
+                }}
+                onClick={handleCancelInput}
+              />
+            </div>
+          )}
         </Heading>
         {ColumnTasks}
       </Stack>

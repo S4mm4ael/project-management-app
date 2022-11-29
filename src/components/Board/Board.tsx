@@ -17,7 +17,7 @@ function Board() {
 
         <section className={styles.board__section}>
           <Link to="/">
-            <button className={styles.back__button}>Main</button>
+            <button className={styles.back__button}>Back</button>
           </Link>
           <DndProvider backend={HTML5Backend}>
             <Container maxWidth="container.lg" px={4} py={8}>
