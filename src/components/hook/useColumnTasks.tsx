@@ -5,7 +5,7 @@ import { pickChakraRandomColor, swap } from '../../utils/helpers';
 import { TaskModel } from '../../utils/models';
 import useTaskCollection from './useTaskCollection';
 
-const MAX_TASK_PER_COLUMN = 80;
+const MAX_TASK_PER_COLUMN = 200;
 
 function useColumnTasks(column: ColumnType) {
   const [tasks, setTasks] = useTaskCollection();

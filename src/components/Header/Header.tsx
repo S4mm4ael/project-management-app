@@ -28,7 +28,9 @@ function Header() {
       <header>
         <div className={styles.header__wrapper}>
           <div className={styles.header__logo}>
-            <img src={logo} alt="logo" />
+            <Link to="/">
+              <img src={logo} alt="logo" />
+            </Link>
           </div>
           <div className={styles.nav__wrapper}>
             <img className={styles.lang} src={langchange} alt="choose lang" />
