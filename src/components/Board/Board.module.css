@@ -11,3 +11,9 @@
   cursor: grab;
   background-color: beige;
 }
+.back__button{
+  background-color: #7795CA ;
+}
+.board__section{
+  padding: 20px;
+}
