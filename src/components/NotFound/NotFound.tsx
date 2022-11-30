@@ -1,8 +1,10 @@
-import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 
 function NotFound() {
+  const { t } = useTranslation();
+
   return (
     <>
       <Header />
@@ -16,7 +18,7 @@ function NotFound() {
           fontSize: '2rem',
         }}
       >
-        <p>NotFound!</p>
+        <p>{t('Page Not Found')}!</p>
       </div>
       <Footer />
     </>

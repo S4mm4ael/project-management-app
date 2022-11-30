@@ -4,6 +4,7 @@ import { useAuth } from '../hook/useAuth';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { LoginInputs, User } from '../../utils/types';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function LoginPage() {
   const [, dispatch] = useAuth();
@@ -13,6 +14,7 @@ function LoginPage() {
     formState: { errors },
   } = useForm<LoginInputs>();
   const [responseError, setResponseError] = useState('');
+  const { t } = useTranslation();
 
   let token = localStorage.getItem('token');
   if (token) {
@@ -63,11 +65,11 @@ function LoginPage() {
 
   return (
     <>
-      <div>Login page</div>
-      <Link to="/register">Register</Link>
+      <div>{t('Login page')}</div>
+      <Link to="/register">{t('Registration page')}</Link>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
-          Login:
+          {t('Login')}:
           <input
             {...register('login', {
               required: 'Login is required',
@@ -76,9 +78,10 @@ function LoginPage() {
           {errors.login && <p>{errors.login.message}</p>}
         </label>
         <label>
-          Password:
+          {t('Password')}:
           <input
             type="password"
+            autoComplete="on"
             {...register('password', {
               required: 'Password is required',
             })}

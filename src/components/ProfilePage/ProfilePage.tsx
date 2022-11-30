@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser, putUser } from '../../utils/fetch';
 import { RegistrationInputs } from '../../utils/types';
@@ -18,6 +19,7 @@ function ProfilePage() {
   } = useForm<RegistrationInputs>();
   const [responseError, setResponseError] = useState('');
   const [activeModal, setActiveModal] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   function handleLogOut() {
     clearLocalStorage();
@@ -69,16 +71,16 @@ function ProfilePage() {
 
   return (
     <>
-      <div>Profile Page</div>
+      <div>{t('Profile Page')}</div>
       <Link to="/main">
-        <button>Main page</button>
+        <button>{t('Main page')}</button>
       </Link>
-      <button onClick={handleLogOut}>Log out</button>
-      <button onClick={changeActive}>Delete account</button>
+      <button onClick={handleLogOut}>{t('Sign Out')}</button>
+      <button onClick={changeActive}>{t('Delete account')}</button>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        Current name: {state.username}
+        {t('Current name')}: {state.username}
         <label>
-          Name:
+          {t('Name')}:
           <input
             {...register('name', {
               required: 'Name is required',
@@ -92,9 +94,9 @@ function ProfilePage() {
           />
           {errors.name && <p>{errors.name.message}</p>}
         </label>
-        Current login: {state.login}
+        {t('Current login')}: {state.login}
         <label>
-          Login:
+          {t('Login')}:
           <input
             {...register('login', {
               required: 'Login is required',
@@ -105,9 +107,10 @@ function ProfilePage() {
           {errors.login && <p>{errors.login.message}</p>}
         </label>
         <label>
-          Password:
+          {t('Password')}:
           <input
             type="password"
+            autoComplete="on"
             {...register('password', {
               required: 'Password is required',
               minLength: { value: 6, message: 'Password is too short' },
@@ -121,7 +124,7 @@ function ProfilePage() {
           />
           {errors.password && <p>{errors.password.message}</p>}
         </label>
-        <button type="submit">Change user data</button>
+        <button type="submit">{t('Change user data')}</button>
       </form>
       {responseError && <p>{responseError}</p>}
       <Modal active={activeModal} setActive={setActiveModal} setError={setResponseError} />

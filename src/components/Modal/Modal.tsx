@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { deleteUser } from '../../utils/fetch';
 import { PropsModal } from '../../utils/types';
@@ -8,6 +9,7 @@ import styles from './Modal.module.css';
 export function Modal(props: PropsModal) {
   const [state, dispatch] = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   async function handleDeleteAccount() {
     try {
@@ -38,8 +40,7 @@ export function Modal(props: PropsModal) {
     >
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
         <div onClick={() => props.setActive(false)}>X</div>
-        Delete current user?
-        <button onClick={handleDeleteAccount}>Confirm</button>
+        {t('Delete current user')}?<button onClick={handleDeleteAccount}>{t('Confirm')}</button>
       </div>
     </div>
   );
