@@ -64,8 +64,8 @@ function Header() {
                 <Link to="/profile">
                   <button className={styles.sign__in}>Edit Profile</button>
                 </Link>
-                <button className={styles.sign__up} onClick={handleLogOut}>
-                  Log out
+                <button className={styles.sign__out} onClick={handleLogOut}>
+                {t('Sign Out')}
                 </button>
               </nav>
             )}
