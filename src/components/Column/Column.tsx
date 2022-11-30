@@ -30,13 +30,9 @@ function Column({ column }: { column: ColumnType }) {
   function showSubmit() {
     setSubmitActive(true);
   }
-  function handleCancelInput() {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     setSubmitActive(false);
-  }
-  //TODO
-  function handleSubmitInput(e: React.MouseEvent<HTMLButtonElement>) {
-    setColumnTitle('+');
-    console.log(columnTitle);
   }
   return (
     <Box>
@@ -48,7 +44,7 @@ function Column({ column }: { column: ColumnType }) {
         h={{ base: 300, md: 600 }}
         p={4}
         mt={2}
-        spacing={1}
+        spacing={3}
         bgColor="white"
         rounded="lg"
         boxShadow="md"
@@ -56,48 +52,56 @@ function Column({ column }: { column: ColumnType }) {
         opacity={isOver ? 0.85 : 1}
       >
         <Heading fontSize="md" letterSpacing="wide" position="relative">
-          <AutoResizeTextarea
-            id={column}
-            border="none"
-            fontWeight="bold"
-            px={2}
-            py={1}
-            rounded="lg"
-            fontSize="1.2rem"
-            onFocus={showSubmit}
-          >
-            {columnTitle}
-          </AutoResizeTextarea>
-          {submitActive && (
-            <div className={style.title__buttons}>
-              <IconButton
-                zIndex={100}
-                aria-label={column}
-                size="sm"
-                colorScheme="solid"
-                color="black"
-                icon={<CheckIcon />}
-                opacity={1}
-                _groupHover={{
-                  opacity: 1,
-                }}
-                onClick={(e) => handleSubmitInput(e)}
-              />
-              <IconButton
-                zIndex={100}
-                aria-label="cancel"
-                size="sm"
-                colorScheme="solid"
-                color="black"
-                icon={<CloseIcon />}
-                opacity={1}
-                _groupHover={{
-                  opacity: 1,
-                }}
-                onClick={handleCancelInput}
-              />
-            </div>
-          )}
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <AutoResizeTextarea
+              id={column}
+              border="none"
+              fontWeight="bold"
+              px={2}
+              py={1}
+              rounded="lg"
+              fontSize="1.2rem"
+              onFocus={showSubmit}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                setColumnTitle(e.target.value)
+              }
+              value={columnTitle}
+            ></AutoResizeTextarea>
+            {submitActive && (
+              <div className={style.title__buttons}>
+                <IconButton
+                  type="submit"
+                  zIndex={100}
+                  id={column}
+                  aria-label={column}
+                  size="sm"
+                  colorScheme="solid"
+                  color="black"
+                  icon={<CheckIcon />}
+                  opacity={1}
+                  _groupHover={{
+                    opacity: 1,
+                  }}
+                />
+                <IconButton
+                  zIndex={100}
+                  aria-label="cancel"
+                  size="sm"
+                  colorScheme="solid"
+                  color="black"
+                  icon={<CloseIcon />}
+                  opacity={1}
+                  _groupHover={{
+                    opacity: 1,
+                  }}
+                  onClick={(e) => {
+                    setColumnTitle('');
+                    setSubmitActive(false);
+                  }}
+                />
+              </div>
+            )}
+          </form>
         </Heading>
         {ColumnTasks}
       </Stack>
