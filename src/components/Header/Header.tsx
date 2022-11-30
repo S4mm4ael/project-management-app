@@ -4,13 +4,29 @@ import styles from './Header.module.css';
 import logo from '../../assets/img/Logo.png';
 import langchange from '../../assets/img/Langchange.png';
 import { useAuth } from '../hook/useAuth';
+import { clearLocalStorage } from '../../utils/utils';
 
 function Header() {
-  const [state, dispatch] = useAuth();
-  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  const [, dispatch] = useAuth();
 
   function handleLogOut() {
-    localStorage.removeItem('token');
+    clearLocalStorage();
+    
+import { Link } from 'react-router-dom';
+import styles from './Header.module.css';
+import logo from '../../assets/img/Logo.png';
+import langchange from '../../assets/img/Langchange.png';
+import { clearLocalStorage } from '../../utils/utils';
+import { useAuth } from '../hook/useAuth';
+
+function Header() {
+  const token = localStorage.getItem('token');
+  const [, dispatch] = useAuth();
+
+  function handleLogOut() {
+    clearLocalStorage();
+
     dispatch({
       type: 'user',
       data: {
@@ -20,6 +36,7 @@ function Header() {
         id: null,
       },
     });
+
     navigate('/');
   }
 
@@ -34,26 +51,28 @@ function Header() {
           </div>
           <div className={styles.nav__wrapper}>
             <img className={styles.lang} src={langchange} alt="choose lang" />
-            <nav>
-              {localStorage.getItem('token') ? (
-                <Link to="/profile">
-                  <button className={styles.sign__in}>Edit Profile</button>
-                </Link>
-              ) : (
-                <Link to="/login">
+
+            {!token && (
+              <nav>
+              <Link to="/login">
                   <button className={styles.sign__in}>Sign In</button>
                 </Link>
-              )}
-              {localStorage.getItem('token') ? (
-                <button className={styles.sign__up} onClick={handleLogOut}>
-                  Log out
-                </button>
-              ) : (
-                <Link to="/register">
+                 <Link to="/register">
                   <button className={styles.sign__up}>Sign Up</button>
                 </Link>
-              )}
-            </nav>
+              </nav>
+            )}
+            {token && (
+              <nav>
+                 <Link to="/profile">
+                  <button className={styles.sign__in}>Edit Profile</button>
+                </Link>
+               <button className={styles.sign__up} onClick={handleLogOut}>
+                  Log out
+                </button>
+              </nav>
+            )}
+            
           </div>
         </div>
       </header>

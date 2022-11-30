@@ -66,3 +66,46 @@ export async function getUsers(token: string | null) {
     console.log(error);
   }
 }
+
+export async function putUser(id: string | null, token: string | null, body: Body) {
+  try {
+    const response = await fetch(`${url}/users/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+    if (response.status === 200) {
+      const user = await response.json();
+      return user;
+    }
+    if (response.status !== 200) {
+      throw new Error(`Something went wrong... Error code: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteUser(id: string | null, token: string | null) {
+  try {
+    const response = await fetch(`${url}/users/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 200) {
+      const user = await response.json();
+      return user;
+    }
+    if (response.status !== 200) {
+      throw new Error(`Something went wrong... Error code: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
