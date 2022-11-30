@@ -5,7 +5,6 @@ import langchange from '../../assets/img/Langchange.png';
 import { clearLocalStorage } from '../../utils/utils';
 import { useAuth } from '../hook/useAuth';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../i18n';
 
 function Header() {
   const token = localStorage.getItem('token');
@@ -62,7 +61,7 @@ function Header() {
             {token && (
               <nav>
                 <Link to="/profile">
-                  <button className={styles.sign__in}>Edit Profile</button>
+                  <button className={styles.sign__in}>{t('Edit Profile')}</button>
                 </Link>
                 <button className={styles.sign__out} onClick={handleLogOut}>
                   {t('Sign Out')}

@@ -4,6 +4,7 @@ import { useAuth } from '../hook/useAuth';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { RegistrationInputs } from '../../utils/types';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export function RegistrationPage() {
   const [state, dispatch] = useAuth();
@@ -14,6 +15,7 @@ export function RegistrationPage() {
     formState: { errors },
   } = useForm<RegistrationInputs>();
   const [responseError, setResponseError] = useState('');
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<RegistrationInputs> = async (data) => {
     const name = data.name;
@@ -45,10 +47,10 @@ export function RegistrationPage() {
 
   return (
     <>
-      <div>Register page</div>
+      <div>{t('Registration page')}</div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
-          Name:
+          {t('Name')}:
           <input
             {...register('name', {
               required: 'Name is required',
@@ -63,7 +65,7 @@ export function RegistrationPage() {
           {errors.name && <p>{errors.name.message}</p>}
         </label>
         <label>
-          Login:
+          {t('Login')}:
           <input
             {...register('login', {
               required: 'Login is required',
@@ -74,9 +76,10 @@ export function RegistrationPage() {
           {errors.login && <p>{errors.login.message}</p>}
         </label>
         <label>
-          Password:
+          {t('Password')}:
           <input
             type="password"
+            autoComplete="on"
             {...register('password', {
               required: 'Password is required',
               minLength: { value: 6, message: 'Password is too short' },
@@ -90,10 +93,9 @@ export function RegistrationPage() {
           />
           {errors.password && <p>{errors.password.message}</p>}
         </label>
-        <button type="submit">Create account</button>
+        <button type="submit">{t('Create account')}</button>
       </form>
       {responseError && <p>{responseError}</p>}
-      <button onClick={getState}>State</button>
     </>
   );
 }

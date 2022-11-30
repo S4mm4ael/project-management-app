@@ -14,7 +14,6 @@ const initialUserData = {
   id: id,
 };
 
-console.log('auth');
 export const AuthContext = createContext<[User, React.Dispatch<Action>]>(null!);
 
 export function AuthProvider({ children }: Props): JSX.Element {

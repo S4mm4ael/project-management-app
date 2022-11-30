@@ -108,6 +108,7 @@ function ProfilePage() {
           Password:
           <input
             type="password"
+            autoComplete="on"
             {...register('password', {
               required: 'Password is required',
               minLength: { value: 6, message: 'Password is too short' },
