@@ -1,4 +1,4 @@
-import { Body } from './types';
+import { BoardsBody, Body } from './types';
 
 const url = 'https://final-task-backend-production-e4cb.up.railway.app';
 
@@ -101,6 +101,50 @@ export async function deleteUser(id: string | null, token: string | null) {
     if (response.status === 200) {
       const user = await response.json();
       return user;
+    }
+    if (response.status !== 200) {
+      throw new Error(`Something went wrong... Error code: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getBoards(token: string | null) {
+  try {
+    const response = await fetch(`${url}/boards`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 200) {
+      const boards = await response.json();
+      return boards;
+    }
+    if (response.status !== 200) {
+      throw new Error(`Something went wrong... Error code: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function createBoard(body: BoardsBody, token: string | null) {
+  try {
+    const response = await fetch(`${url}/boards`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+    if (response.status === 200) {
+      const board = await response.json();
+      console.log('succsess', board);
+      return board;
     }
     if (response.status !== 200) {
       throw new Error(`Something went wrong... Error code: ${response.status}`);

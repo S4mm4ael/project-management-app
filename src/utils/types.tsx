@@ -36,3 +36,16 @@ export type PropsModal = {
   setActive: (value: boolean) => void;
   setError: (velue: string) => void;
 };
+
+export type Boards = {
+  id: string;
+  title: string;
+  owner: string;
+  users: string[];
+};
+
+export type BoardsBody = {
+  title: string;
+  owner: string;
+  users: string[];
+};

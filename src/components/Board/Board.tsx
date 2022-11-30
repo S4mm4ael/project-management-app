@@ -1,4 +1,3 @@
-import {} from '@chakra-ui/icons';
 import { ChakraProvider, Container, SimpleGrid, theme } from '@chakra-ui/react';
 import { DndProvider } from 'react-dnd';
 import { Link } from 'react-router-dom';
