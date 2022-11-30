@@ -27,6 +27,9 @@ const resources = {
       'Main page': 'Main page',
       'Profile Page': 'Profile Page',
       'Delete account': 'Delete account',
+      'Page Not Found': 'Page Not Found',
+      'Delete current user': 'Delete current user',
+      Confirm: 'Confirm',
     },
   },
   ru: {
@@ -54,6 +57,9 @@ const resources = {
       'Main page': 'Главная',
       'Profile Page': 'Страница профиля',
       'Delete account': 'Удалить аккаунт',
+      'Page Not Found': 'Страница не найдена',
+      'Delete current user': 'Удалить текущего пользователя',
+      Confirm: 'Подтвердить',
     },
   },
 };

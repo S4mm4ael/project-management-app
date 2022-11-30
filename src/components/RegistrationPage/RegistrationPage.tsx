@@ -41,9 +41,6 @@ export function RegistrationPage() {
       setResponseError('User with this login already exists');
     }
   };
-  function getState() {
-    console.log(state);
-  }
 
   return (
     <>
