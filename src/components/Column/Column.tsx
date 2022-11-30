@@ -94,7 +94,7 @@ function Column({ column }: { column: ColumnType }) {
                   _groupHover={{
                     opacity: 1,
                   }}
-                  onClick={(e) => {
+                  onClick={() => {
                     setColumnTitle('');
                     setSubmitActive(false);
                   }}
