@@ -1,0 +1,8 @@
+.title__buttons{
+  position: absolute;
+  height: 40px;
+  width: 80px;
+  display: flex;
+  bottom: 5px;
+  left: 70%;
+}

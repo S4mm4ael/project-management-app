@@ -9,6 +9,7 @@ body {
 }
 #root{
   background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(247, 201, 85, 0.4) 100%);
+  min-height: 100vh;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -23,7 +24,6 @@ a{
 a:visited{
   color: #000;
 }
-a:hover{color: #7795CA;}
 button{
   cursor: pointer;
   border: none;

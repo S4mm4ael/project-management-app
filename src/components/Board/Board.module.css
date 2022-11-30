@@ -1,0 +1,19 @@
+.board__title{
+  font-size: 1.2rem; 
+  font-weight: 800;
+}
+.item{
+  width: 100%;
+  border: 2px solid royalblue;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 5px 0;
+  cursor: grab;
+  background-color: beige;
+}
+.back__button{
+  background-color: #F7C955 ;
+}
+.board__section{
+  padding: 20px;
+}

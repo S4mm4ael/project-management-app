@@ -4,6 +4,7 @@ import { AuthProvider } from './components/hoc/AuthProvider';
 import RequireAuth from './components/hoc/RequireAuth';
 import { LoginPage } from './components/LoginPage/LoginPage';
 import MainPage from './components/MainPage/MainPage';
+import NotFound from './components/NotFound/NotFound';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import { RegistrationPage } from './components/RegistrationPage/RegistrationPage';
 import WelcomePage from './components/WelcomePage/WelcomePage';
@@ -32,6 +33,7 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </AuthProvider>
     </>

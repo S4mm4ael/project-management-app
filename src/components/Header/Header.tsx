@@ -1,3 +1,18 @@
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import styles from './Header.module.css';
+import logo from '../../assets/img/Logo.png';
+import langchange from '../../assets/img/Langchange.png';
+import { useAuth } from '../hook/useAuth';
+import { clearLocalStorage } from '../../utils/utils';
+
+function Header() {
+  const token = localStorage.getItem('token');
+  const [, dispatch] = useAuth();
+
+  function handleLogOut() {
+    clearLocalStorage();
+    
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
 import logo from '../../assets/img/Logo.png';
@@ -11,6 +26,7 @@ function Header() {
 
   function handleLogOut() {
     clearLocalStorage();
+
     dispatch({
       type: 'user',
       data: {
@@ -20,33 +36,43 @@ function Header() {
         id: null,
       },
     });
+
+    navigate('/');
   }
+
   return (
     <>
       <header>
         <div className={styles.header__wrapper}>
           <div className={styles.header__logo}>
-            <img src={logo} alt="logo" />
+            <Link to="/">
+              <img src={logo} alt="logo" />
+            </Link>
           </div>
           <div className={styles.nav__wrapper}>
             <img className={styles.lang} src={langchange} alt="choose lang" />
+
             {!token && (
               <nav>
-                <Link to="/login">
+              <Link to="/login">
                   <button className={styles.sign__in}>Sign In</button>
                 </Link>
-                <Link to="/register">
+                 <Link to="/register">
                   <button className={styles.sign__up}>Sign Up</button>
                 </Link>
               </nav>
             )}
             {token && (
               <nav>
-                <button className={styles.sign__out} onClick={handleLogOut}>
-                  Sign Out
+                 <Link to="/profile">
+                  <button className={styles.sign__in}>Edit Profile</button>
+                </Link>
+               <button className={styles.sign__up} onClick={handleLogOut}>
+                  Log out
                 </button>
               </nav>
             )}
+            
           </div>
         </div>
       </header>
