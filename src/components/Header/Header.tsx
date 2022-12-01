@@ -32,7 +32,7 @@ function Header() {
 
   return (
     <>
-      <header>
+      <header className={styles.header__sticky}>
         <div className={styles.header__wrapper}>
           <div className={styles.header__logo}>
             <Link to="/">
@@ -40,8 +40,15 @@ function Header() {
             </Link>
           </div>
           <div className={styles.nav__wrapper}>
-            <img className={styles.lang} src={langchange} alt="choose lang" />
+            <img
+              className={styles.lang}
+              src={langchange}
+              alt="choose lang"
+              width="40px"
+              height="40px"
+            />
             <select
+              className={styles.select__lang}
               onChange={changeLangHandler}
               defaultValue={localStorage.getItem('lang') || 'en'}
             >
