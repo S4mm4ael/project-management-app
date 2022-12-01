@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { createBoard, getBoards } from '../../utils/fetch';
 import { Boards } from '../../utils/types';
-import BoardsItem from './BoardsItem';
+import BoardsItem from '../BoardsItem/BoardsItem';
+import Footer from '../Footer/Footer';
+import Header from '../Header/Header';
 
 function MainPage() {
   const [apiData, setApiData] = useState<Boards[]>([]);
@@ -44,13 +46,19 @@ function MainPage() {
 
   return (
     <>
+      <Header />
       {apiData.map((item) => (
         <BoardsItem key={item._id} item={item} />
       ))}
       <section className="main__section">
-        <button onClick={handleGetBoards}>getBoards</button>
-        <button onClick={handleCreateBoard}>createBoard</button>
+        <button onClick={handleGetBoards} style={{ backgroundColor: '#99A33B' }}>
+          getBoards
+        </button>
+        <button onClick={handleCreateBoard} style={{ backgroundColor: '#99A33B' }}>
+          createBoard
+        </button>
       </section>
+      <Footer />
     </>
   );
 }

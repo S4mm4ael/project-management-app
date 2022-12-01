@@ -77,7 +77,9 @@ function Column({ column }: { column: ColumnType }) {
   }
   return (
     <Box>
-      <button onClick={handleCreateColumn}>createColumn</button>
+      <button onClick={handleCreateColumn} style={{ backgroundColor: '#99A33B' }}>
+        createColumn
+      </button>
       <Stack
         ref={dropRef}
         display="flex"
