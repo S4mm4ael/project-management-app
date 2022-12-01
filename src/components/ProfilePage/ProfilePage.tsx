@@ -75,70 +75,72 @@ function ProfilePage() {
     <>
       <Header />
       <section className={styles.profile__section}>
-        <h2>{t('Profile Page')}</h2>
-        <div className={styles.button__container}>
-          <button className={styles.sign__out} onClick={handleLogOut}>
-            {t('Sign Out')}
-          </button>
-          <button className={styles.delete} onClick={changeActive}>
-            {t('Delete account')}
-          </button>
-        </div>
+        <div className={styles.profile__wrapper}>
+          <h2>{t('Profile Page')}</h2>
+          <div className={styles.button__container}>
+            <button className={styles.sign__out} onClick={handleLogOut}>
+              {t('Sign Out')}
+            </button>
+            <button className={styles.delete} onClick={changeActive}>
+              {t('Delete account')}
+            </button>
+          </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-          {t('Current name')}: <b>{state.username}</b>
-          <label>
-            {t('Name')}:
-            <input
-              {...register('name', {
-                required: 'Name is required',
-                minLength: { value: 2, message: 'Name is too short' },
-                maxLength: { value: 20, message: 'Name is too long' },
-                pattern: {
-                  value: /[a-zA-Z\s-]{2,25}/,
-                  message:
-                    'Name should contain only letters, whitespace caracters or "-" character',
-                },
-              })}
-            />
-            {errors.name && <p>{errors.name.message}</p>}
-          </label>
-          {t('Current login')}: <b>{state.login}</b>
-          <label>
-            {t('Login')}:
-            <input
-              {...register('login', {
-                required: 'Login is required',
-                maxLength: { value: 20, message: 'Login is too long' },
-                minLength: { value: 3, message: 'Login is too short' },
-              })}
-            />
-            {errors.login && <p>{errors.login.message}</p>}
-          </label>
-          <label>
-            {t('Password')}:
-            <input
-              type="password"
-              autoComplete="on"
-              {...register('password', {
-                required: 'Password is required',
-                minLength: { value: 6, message: 'Password is too short' },
-                maxLength: { value: 25, message: 'Password is too long' },
-                pattern: {
-                  value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,25}/,
-                  message:
-                    'Password should contain at least one special character (!@#$%^&*), digit and letter',
-                },
-              })}
-            />
-            {errors.password && <p>{errors.password.message}</p>}
-          </label>
-          <button type="submit" className={styles.change}>
-            {t('Change user data')}
-          </button>
-        </form>
-        {responseError && <p>{responseError}</p>}
-        <Modal active={activeModal} setActive={setActiveModal} setError={setResponseError} />
+          <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+            {t('Current name')}: <b>{state.username}</b>
+            <label>
+              {t('Name')}:
+              <input
+                {...register('name', {
+                  required: 'Name is required',
+                  minLength: { value: 2, message: 'Name is too short' },
+                  maxLength: { value: 20, message: 'Name is too long' },
+                  pattern: {
+                    value: /[a-zA-Z\s-]{2,25}/,
+                    message:
+                      'Name should contain only letters, whitespace caracters or "-" character',
+                  },
+                })}
+              />
+              {errors.name && <p>{errors.name.message}</p>}
+            </label>
+            {t('Current login')}: <b>{state.login}</b>
+            <label>
+              {t('Login')}:
+              <input
+                {...register('login', {
+                  required: 'Login is required',
+                  maxLength: { value: 20, message: 'Login is too long' },
+                  minLength: { value: 3, message: 'Login is too short' },
+                })}
+              />
+              {errors.login && <p>{errors.login.message}</p>}
+            </label>
+            <label>
+              {t('Password')}:
+              <input
+                type="password"
+                autoComplete="on"
+                {...register('password', {
+                  required: 'Password is required',
+                  minLength: { value: 6, message: 'Password is too short' },
+                  maxLength: { value: 25, message: 'Password is too long' },
+                  pattern: {
+                    value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,25}/,
+                    message:
+                      'Password should contain at least one special character (!@#$%^&*), digit and letter',
+                  },
+                })}
+              />
+              {errors.password && <p>{errors.password.message}</p>}
+            </label>
+            <button type="submit" className={styles.change}>
+              {t('Change user data')}
+            </button>
+          </form>
+          {responseError && <p>{responseError}</p>}
+          <Modal active={activeModal} setActive={setActiveModal} setError={setResponseError} />
+        </div>
       </section>
 
       <Footer />
