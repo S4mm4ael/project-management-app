@@ -67,6 +67,9 @@ function Header() {
             )}
             {token && (
               <nav>
+                <Link to="/main">
+                  <button className={styles.sign__up}>{t('Main')}</button>
+                </Link>
                 <Link to="/profile">
                   <button className={styles.sign__in}>{t('Edit Profile')}</button>
                 </Link>

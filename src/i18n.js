@@ -8,6 +8,7 @@ const resources = {
       'Sign Up': 'Sign Up',
       'Sign Out': 'Sign Out',
       'Lets try!': 'Lets try!',
+      Main: 'Main',
       Demo: 'Demo',
       'Our project management app allows users to centrally manage tasks and their timely completion. Trackers are widely used in project management, because they allow you to easily monitor all work processes and control the work of the team':
         'Our project management app allows users to centrally manage tasks and their timely completion. Trackers are widely used in project management, because they allow you to easily monitor all work processes and control the work of the team',
@@ -38,6 +39,7 @@ const resources = {
       'Sign Up': 'Регистрация',
       'Sign Out': 'Выйти',
       'Lets try!': 'Попробовать!',
+      Main: 'Главная',
       Demo: 'Демо',
       'Our project management app allows users to centrally manage tasks and their timely completion. Trackers are widely used in project management, because they allow you to easily monitor all work processes and control the work of the team':
         'Наше приложение для управления проектами позволяет пользователям централизованно управлять задачами и их своевременным выполнением. Трекеры широко используются в управлении проектами, поскольку позволяют легко отслеживать все рабочие процессы и контролировать работу команды.',
