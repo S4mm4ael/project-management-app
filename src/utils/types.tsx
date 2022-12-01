@@ -38,7 +38,7 @@ export type PropsModal = {
 };
 
 export type Boards = {
-  id: string;
+  _id: string;
   title: string;
   owner: string;
   users: string[];

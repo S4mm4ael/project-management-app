@@ -153,3 +153,24 @@ export async function createBoard(body: BoardsBody, token: string | null) {
     console.log(error);
   }
 }
+
+export async function getBoard(token: string | null, boardId: string | null) {
+  try {
+    const response = await fetch(`${url}/boards/${boardId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 200) {
+      const board = await response.json();
+      return board;
+    }
+    if (response.status !== 200) {
+      throw new Error(`Something went wrong... Error code: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
