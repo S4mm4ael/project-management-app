@@ -7,12 +7,13 @@ import { ColumnType } from '../../utils/enums';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import styles from './Board.module.css';
-import { getBoard } from '../../utils/fetch';
+import { createColumn, getBoard, getColumns } from '../../utils/fetch';
 import { useEffect, useState } from 'react';
-import { Boards } from '../../utils/types';
+import { Boards, Columns } from '../../utils/types';
 
 function Board() {
   const [apiData, setApiData] = useState<Boards>();
+  const [columnApiData, setColumnApiData] = useState<Columns[]>([]);
   const boardId = localStorage.getItem('currentBoardId');
   const token = localStorage.getItem('token');
 
@@ -29,10 +30,41 @@ function Board() {
     }
   };
 
+  const handleGetColumns = async () => {
+    try {
+      const response = await getColumns(token, boardId);
+      console.log(response);
+      if (response.status > 399) {
+        throw new Error(`Something went wrong... Error code: ${response.status}`);
+      }
+      setColumnApiData(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCreateColumn = async () => {
+    try {
+      const body = {
+        title: 'Column #4',
+        order: 3,
+      };
+      const response = await createColumn(body, token, boardId);
+      console.log(response);
+      if (response.status > 399) {
+        throw new Error(`Something went wrong... Error code: ${response.status}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    handleGetColumns();
+  };
+
   useEffect(() => {
     handleGetBoard();
+    handleGetColumns();
   }, []);
-
+  /*
   return (
     <>
       <ChakraProvider theme={theme}>
@@ -50,6 +82,34 @@ function Board() {
                 <Column column={ColumnType.IN_PROGRESS} />
                 <Column column={ColumnType.BLOCKED} />
                 <Column column={ColumnType.COMPLETED} />
+              </SimpleGrid>
+            </Container>
+          </DndProvider>
+        </section>
+
+        <Footer />
+      </ChakraProvider>
+    </>
+  );*/
+  return (
+    <>
+      <ChakraProvider theme={theme}>
+        <Header />
+
+        <section className={styles.board__section}>
+          <Link to="/main">
+            <button className={styles.back__button}>Back</button>
+          </Link>
+          Board Title: {apiData?.title}
+          <button onClick={handleCreateColumn} style={{ backgroundColor: '#99A33B' }}>
+            createColumn
+          </button>
+          <DndProvider backend={HTML5Backend}>
+            <Container maxWidth="container.lg" px={4} py={8}>
+              <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 16, md: 4 }}>
+                {columnApiData.map((item) => (
+                  <Column key={item._id} column={ColumnType.TO_DO} item={item} />
+                ))}
               </SimpleGrid>
             </Container>
           </DndProvider>

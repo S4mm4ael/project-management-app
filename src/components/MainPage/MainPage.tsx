@@ -51,9 +51,6 @@ function MainPage() {
         <BoardsItem key={item._id} item={item} />
       ))}
       <section className="main__section">
-        <button onClick={handleGetBoards} style={{ backgroundColor: '#99A33B' }}>
-          getBoards
-        </button>
         <button onClick={handleCreateBoard} style={{ backgroundColor: '#99A33B' }}>
           createBoard
         </button>
