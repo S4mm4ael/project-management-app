@@ -5,8 +5,10 @@ import useColumnTasks from '../../components/hook/useColumnTasks';
 import { ColumnType } from '../../utils/enums';
 import Task from '../Task/Task';
 import { AutoResizeTextarea } from '../AutoResizeTextArea/AutoResizeTextArea';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import style from './Column.module.css';
+import { createColumn, getColumns } from '../../utils/fetch';
+import { Columns } from '../../utils/types';
 
 function Column({ column }: { column: ColumnType }) {
   const { tasks, addEmptyTask, deleteTask, dropTaskFrom, swapTasks, updateTask } =
@@ -25,6 +27,45 @@ function Column({ column }: { column: ColumnType }) {
     />
   ));
   //
+
+  const [apiData, setApiData] = useState<Columns>();
+  const boardId = localStorage.getItem('currentBoardId');
+  const token = localStorage.getItem('token');
+
+  const handleGetColumns = async () => {
+    try {
+      const response = await getColumns(token, boardId);
+      console.log(response);
+      if (response.status > 399) {
+        throw new Error(`Something went wrong... Error code: ${response.status}`);
+      }
+      setApiData(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCreateColumn = async () => {
+    try {
+      const body = {
+        title: 'Column #3',
+        order: 2,
+      };
+      const response = await createColumn(body, token, boardId);
+      console.log(response);
+      if (response.status > 399) {
+        throw new Error(`Something went wrong... Error code: ${response.status}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    handleGetColumns();
+  };
+
+  useEffect(() => {
+    handleGetColumns();
+  }, []);
+
   const [columnTitle, setColumnTitle] = useState(column.toString());
   const [submitActive, setSubmitActive] = useState(false);
   function showSubmit() {
@@ -36,6 +77,7 @@ function Column({ column }: { column: ColumnType }) {
   }
   return (
     <Box>
+      <button onClick={handleCreateColumn}>createColumn</button>
       <Stack
         ref={dropRef}
         display="flex"

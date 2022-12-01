@@ -49,3 +49,15 @@ export type BoardsBody = {
   owner: string;
   users: string[];
 };
+
+export type Columns = {
+  _id: string;
+  title: string;
+  order: number;
+  boardId: string;
+};
+
+export type ColumnBody = {
+  title: string;
+  order: number;
+};
