@@ -19,8 +19,8 @@ function WelcomePage() {
           </div>
           <div className={styles.welcome__right}>
             <div className={styles.right__text}>
-              <h1>{t('Team task manager app')}</h1>
-              <article>
+              <h1 className={styles.welcome__header}>{t('Team task manager app')}</h1>
+              <article className={styles.welcome__article}>
                 {t(
                   'Our project management app allows users to centrally manage tasks and their timely completion. Trackers are widely used in project management, because they allow you to easily monitor all work processes and control the work of the team'
                 )}

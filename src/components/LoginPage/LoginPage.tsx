@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { LoginInputs, User } from '../../utils/types';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import styles from '../LoginPage/LoginPage.module.css';
 
 function LoginPage() {
   const [, dispatch] = useAuth();
@@ -65,32 +66,44 @@ function LoginPage() {
 
   return (
     <>
-      <div>{t('Login page')}</div>
-      <Link to="/register">{t('Registration page')}</Link>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>
-          {t('Login')}:
-          <input
-            {...register('login', {
-              required: 'Login is required',
-            })}
-          />
-          {errors.login && <p>{errors.login.message}</p>}
-        </label>
-        <label>
-          {t('Password')}:
-          <input
-            type="password"
-            autoComplete="on"
-            {...register('password', {
-              required: 'Password is required',
-            })}
-          />
-          {errors.password && <p>{errors.password.message}</p>}
-        </label>
-        <button type="submit">Login</button>
-        {responseError && <p>{responseError}</p>}
-      </form>
+      <section className={styles.login__section}>
+        <div className={styles.login__wrapper}>
+          <h2>{t('Login page')}</h2>
+
+          <form className={styles.login__form} onSubmit={handleSubmit(onSubmit)}>
+            <label>
+              {t('Login')}:
+              <input
+                {...register('login', {
+                  required: 'Login is required',
+                })}
+              />
+              {errors.login && <p className={styles.input__error}>{errors.login.message}</p>}
+            </label>
+            <label>
+              {t('Password')}:
+              <input
+                type="password"
+                autoComplete="on"
+                {...register('password', {
+                  required: 'Password is required',
+                })}
+              />
+              {errors.password && <p className={styles.input__error}>{errors.password.message}</p>}
+            </label>
+            <button className={styles.confirm} type="submit">
+              {t('Login')}
+            </button>
+            <Link to="/register">
+              <button className={styles.register}>{t('Registration')}</button>
+            </Link>
+            <Link to="/">
+              <button className={styles.main}>{t('Back')}</button>
+            </Link>
+            {responseError && <p className={styles.input__error}>{responseError}</p>}
+          </form>
+        </div>
+      </section>
     </>
   );
 }
