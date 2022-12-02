@@ -9,7 +9,7 @@ import { useState } from 'react';
 import style from './Column.module.css';
 import { Columns } from '../../utils/types';
 
-function Column({ column, item }: { column: ColumnType; item: Columns }) {
+function Column({ column, item, title }: { column: ColumnType; item: Columns; title: string }) {
   const { tasks, addEmptyTask, deleteTask, dropTaskFrom, swapTasks, updateTask } =
     useColumnTasks(column);
 
@@ -26,7 +26,7 @@ function Column({ column, item }: { column: ColumnType; item: Columns }) {
     />
   ));
   //
-  const [columnTitle, setColumnTitle] = useState(column.toString());
+  const [columnTitle, setColumnTitle] = useState(title);
   const [submitActive, setSubmitActive] = useState(false);
   function showSubmit() {
     setSubmitActive(true);

@@ -20,7 +20,7 @@ function Board() {
   const handleGetBoard = async () => {
     try {
       const response = await getBoard(token, boardId);
-      console.log(response);
+      //console.log(response);
       if (response.status > 399) {
         throw new Error(`Something went wrong... Error code: ${response.status}`);
       }
@@ -50,10 +50,11 @@ function Board() {
         order: 3,
       };
       const response = await createColumn(body, token, boardId);
-      console.log(response);
+      // console.log(response);
       if (response.status > 399) {
         throw new Error(`Something went wrong... Error code: ${response.status}`);
       }
+      return response;
     } catch (error) {
       console.log(error);
     }
@@ -107,8 +108,13 @@ function Board() {
           <DndProvider backend={HTML5Backend}>
             <Container maxWidth="container.lg" px={4} py={8}>
               <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 16, md: 4 }}>
-                {columnApiData.map((item) => (
-                  <Column key={item._id} column={ColumnType.TO_DO} item={item} />
+                {columnApiData.map((item, index) => (
+                  <Column
+                    key={item._id}
+                    column={ColumnType.TO_DO}
+                    item={item}
+                    title={columnApiData[index].title}
+                  />
                 ))}
               </SimpleGrid>
             </Container>
