@@ -50,7 +50,6 @@ function Board() {
         order: 3,
       };
       const response = await createColumn(body, token, boardId);
-      // console.log(response);
       if (response.status > 399) {
         throw new Error(`Something went wrong... Error code: ${response.status}`);
       }
@@ -58,7 +57,6 @@ function Board() {
     } catch (error) {
       console.log(error);
     }
-    handleGetColumns();
   };
 
   useEffect(() => {
@@ -98,21 +96,26 @@ function Board() {
         <Header />
 
         <section className={styles.board__section}>
-          <Link to="/main">
-            <button className={styles.back__button}>Back</button>
-          </Link>
-          Board Title: {apiData?.title}
-          <button
-            onClick={() => {
-              handleCreateColumn();
-              handleGetColumns();
-            }}
-            style={{ backgroundColor: '#99A33B' }}
-          >
-            createColumn
-          </button>
+          <div className={styles.board__header}>
+            <Link to="/main">
+              <button className={styles.back__button}>Back</button>
+            </Link>
+
+            <button
+              className={styles.create__button}
+              onClick={() => {
+                handleCreateColumn();
+                handleGetColumns();
+              }}
+              style={{ backgroundColor: '#99A33B' }}
+            >
+              createColumn
+            </button>
+            <h2 className={styles.board__title}>{apiData?.title}</h2>
+          </div>
+
           <DndProvider backend={HTML5Backend}>
-            <Container display="flex" gap={5} maxWidth="container.lg" overflowX="scroll" py={8}>
+            <Container display="flex" maxWidth="auto" gap={5} overflowX="scroll" py={8} minH={670}>
               {columnApiData.map((item, index) => (
                 <Column
                   key={item._id}

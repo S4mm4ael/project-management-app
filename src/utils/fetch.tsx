@@ -243,3 +243,28 @@ export async function deleteColumn(
     console.log(error);
   }
 }
+export async function updateColumn(
+  token: string | null,
+  boardId: string | null,
+  columnId: string | null,
+  body: ColumnBody
+) {
+  try {
+    const response = await fetch(`${url}/boards/${boardId}/columns/${columnId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+    if (response.status === 200) {
+      return response;
+    }
+    if (response.status !== 200) {
+      throw new Error(`Something went wrong... Error code: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

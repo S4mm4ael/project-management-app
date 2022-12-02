@@ -8,7 +8,7 @@ import { AutoResizeTextarea } from '../AutoResizeTextArea/AutoResizeTextArea';
 import { useState } from 'react';
 import style from './Column.module.css';
 import { Columns } from '../../utils/types';
-import { deleteColumn } from '../../utils/fetch';
+import { deleteColumn, updateColumn } from '../../utils/fetch';
 
 function Column({
   column,
@@ -54,14 +54,25 @@ function Column({
   }
   const handleDeleteColumn = async () => {
     try {
-      const response = await deleteColumn(TOKEN, boardId, columnId);
-      console.log(response);
+      await deleteColumn(TOKEN, boardId, columnId);
     } catch (error) {
       console.log(error);
     }
     handleGetColumns();
   };
+  const handleUpdateColumn = async () => {
+    try {
+      const body = {
+        title: columnTitle,
+        order: 3,
+      };
+      const response = await updateColumn(TOKEN, boardId, columnId, body);
 
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // const handleDeleteColumn = async () => {
   //   try {
   //     const body = {
@@ -109,9 +120,9 @@ function Column({
               rounded="lg"
               fontSize="1.2rem"
               onFocus={showSubmit}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                setColumnTitle(e.target.value)
-              }
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                setColumnTitle(e.target.value);
+              }}
               value={columnTitle}
             ></AutoResizeTextarea>
             {submitActive && (
@@ -128,6 +139,10 @@ function Column({
                   opacity={1}
                   _groupHover={{
                     opacity: 1,
+                  }}
+                  onClick={() => {
+                    handleUpdateColumn();
+                    handleGetColumns();
                   }}
                 />
                 <IconButton
