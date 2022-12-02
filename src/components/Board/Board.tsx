@@ -106,17 +106,22 @@ function Board() {
             createColumn
           </button>
           <DndProvider backend={HTML5Backend}>
-            <Container maxWidth="container.lg" px={4} py={8}>
-              <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 16, md: 4 }}>
-                {columnApiData.map((item, index) => (
-                  <Column
-                    key={item._id}
-                    column={ColumnType.TO_DO}
-                    item={item}
-                    title={columnApiData[index].title}
-                  />
-                ))}
-              </SimpleGrid>
+            <Container
+              display="flex"
+              gap={5}
+              overflowX="scroll"
+              overflowY="hidden"
+              maxWidth="container.lg"
+              py={8}
+            >
+              {columnApiData.map((item, index) => (
+                <Column
+                  key={item._id}
+                  column={ColumnType.TO_DO}
+                  item={item}
+                  title={columnApiData[index].title}
+                />
+              ))}
             </Container>
           </DndProvider>
         </section>

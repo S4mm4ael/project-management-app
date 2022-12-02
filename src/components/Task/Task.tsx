@@ -79,7 +79,7 @@ function Task({
           p={2}
           resize="none"
           minH={70}
-          maxH={200}
+          maxH={150}
           focusBorderColor="none"
           color="gray.700"
           onChange={handleTitleChange}

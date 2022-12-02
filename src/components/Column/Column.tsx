@@ -42,7 +42,7 @@ function Column({ column, item, title }: { column: ColumnType; item: Columns; ti
         display="flex"
         justifyContent="s"
         direction={{ base: 'row', md: 'column' }}
-        h={{ base: 300, md: 600 }}
+        h={{ base: 300, md: 480 }}
         p={4}
         mt={2}
         spacing={3}
