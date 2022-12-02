@@ -218,3 +218,28 @@ export async function createColumn(body: ColumnBody, token: string | null, board
     console.log(error);
   }
 }
+
+export async function deleteColumn(
+  token: string | null,
+  boardId: string | null,
+  columnId: string | null
+) {
+  try {
+    const response = await fetch(`${url}/boards/${boardId}/columns/${columnId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 200) {
+      const column = await response.json();
+      console.log('succsess delete', column);
+    }
+    if (response.status !== 200) {
+      throw new Error(`Something went wrong... Error code: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

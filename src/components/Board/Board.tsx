@@ -1,4 +1,4 @@
-import { ChakraProvider, Container, SimpleGrid, theme } from '@chakra-ui/react';
+import { ChakraProvider, Container, theme } from '@chakra-ui/react';
 import { DndProvider } from 'react-dnd';
 import { Link } from 'react-router-dom';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -106,19 +106,14 @@ function Board() {
             createColumn
           </button>
           <DndProvider backend={HTML5Backend}>
-            <Container
-              display="flex"
-              gap={5}
-              overflowX="scroll"
-              overflowY="hidden"
-              maxWidth="container.lg"
-              py={8}
-            >
+            <Container display="flex" gap={5} maxWidth="container.lg" overflowX="scroll" py={8}>
               {columnApiData.map((item, index) => (
                 <Column
                   key={item._id}
                   column={ColumnType.TO_DO}
                   item={item}
+                  boardId={boardId}
+                  columnId={columnApiData[index]._id}
                   title={columnApiData[index].title}
                 />
               ))}

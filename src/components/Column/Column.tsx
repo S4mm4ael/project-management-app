@@ -8,8 +8,20 @@ import { AutoResizeTextarea } from '../AutoResizeTextArea/AutoResizeTextArea';
 import { useState } from 'react';
 import style from './Column.module.css';
 import { Columns } from '../../utils/types';
+import { deleteColumn } from '../../utils/fetch';
 
-function Column({ column, item, title }: { column: ColumnType; item: Columns; title: string }) {
+function Column({
+  column,
+  title,
+  boardId,
+  columnId,
+}: {
+  column: ColumnType;
+  item: Columns;
+  title: string;
+  boardId: string | null;
+  columnId: string;
+}) {
   const { tasks, addEmptyTask, deleteTask, dropTaskFrom, swapTasks, updateTask } =
     useColumnTasks(column);
 
@@ -26,7 +38,10 @@ function Column({ column, item, title }: { column: ColumnType; item: Columns; ti
     />
   ));
   //
+  const TOKEN = localStorage.getItem('token');
+  const ID = columnId;
   const [columnTitle, setColumnTitle] = useState(title);
+
   const [submitActive, setSubmitActive] = useState(false);
   function showSubmit() {
     setSubmitActive(true);
@@ -35,15 +50,43 @@ function Column({ column, item, title }: { column: ColumnType; item: Columns; ti
     e.preventDefault();
     setSubmitActive(false);
   }
+  const handleDeleteColumn = async () => {
+    try {
+      const response = await deleteColumn(TOKEN, boardId, columnId);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const handleDeleteColumn = async () => {
+  //   try {
+  //     const body = {
+  //       title: columnTitle,
+  //       order: 3,
+  //     };
+  //     const response = await deleteColumn(body, token, boardId, columnId);
+  //     // console.log(response);
+  //     if (response.status > 399) {
+  //       throw new Error(`Something went wrong... Error code: ${response.status}`);
+  //     }
+  //     return response;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   handleGetColumns();
+  // };
+
   return (
-    <Box>
+    <Box id={ID}>
       <Stack
         ref={dropRef}
         display="flex"
         justifyContent="s"
         direction={{ base: 'row', md: 'column' }}
-        h={{ base: 300, md: 480 }}
-        p={4}
+        h={{ base: 300, md: 430 }}
+        w={220}
+        p={2}
         mt={2}
         spacing={3}
         bgColor="white"
@@ -107,7 +150,6 @@ function Column({ column, item, title }: { column: ColumnType; item: Columns; ti
         {ColumnTasks}
       </Stack>
       <IconButton
-        size="xs"
         w="full"
         color={useColorModeValue('gray.500', 'gray.400')}
         bgColor={useColorModeValue('gray.100', 'gray.700')}
@@ -119,6 +161,20 @@ function Column({ column, item, title }: { column: ColumnType; item: Columns; ti
         colorScheme="black"
         aria-label="add-task"
         icon={<AddIcon />}
+        boxShadow="md"
+      />
+      <IconButton
+        w="full"
+        color={useColorModeValue('white.500', 'gray.400')}
+        bgColor={useColorModeValue('red.500', 'red.700')}
+        _hover={{ bgColor: useColorModeValue('red.300', 'red.600') }}
+        py={2}
+        mt={2}
+        variant="solid"
+        onClick={handleDeleteColumn}
+        colorScheme="black"
+        aria-label="delete-colum"
+        icon={<CloseIcon />}
         boxShadow="md"
       />
     </Box>
