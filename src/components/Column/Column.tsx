@@ -15,12 +15,14 @@ function Column({
   title,
   boardId,
   columnId,
+  handleGetColumns,
 }: {
   column: ColumnType;
   item: Columns;
   title: string;
   boardId: string | null;
   columnId: string;
+  handleGetColumns: () => Promise<void>;
 }) {
   const { tasks, addEmptyTask, deleteTask, dropTaskFrom, swapTasks, updateTask } =
     useColumnTasks(column);
@@ -57,6 +59,7 @@ function Column({
     } catch (error) {
       console.log(error);
     }
+    handleGetColumns();
   };
 
   // const handleDeleteColumn = async () => {

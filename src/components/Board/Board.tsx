@@ -102,7 +102,13 @@ function Board() {
             <button className={styles.back__button}>Back</button>
           </Link>
           Board Title: {apiData?.title}
-          <button onClick={handleCreateColumn} style={{ backgroundColor: '#99A33B' }}>
+          <button
+            onClick={() => {
+              handleCreateColumn();
+              handleGetColumns();
+            }}
+            style={{ backgroundColor: '#99A33B' }}
+          >
             createColumn
           </button>
           <DndProvider backend={HTML5Backend}>
@@ -115,6 +121,7 @@ function Board() {
                   boardId={boardId}
                   columnId={columnApiData[index]._id}
                   title={columnApiData[index].title}
+                  handleGetColumns={handleGetColumns}
                 />
               ))}
             </Container>
