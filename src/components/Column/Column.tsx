@@ -173,7 +173,7 @@ function Column({
         variant="solid"
         onClick={handleDeleteColumn}
         colorScheme="black"
-        aria-label="delete-colum"
+        aria-label="delete-column"
         icon={<CloseIcon />}
         boxShadow="md"
       />
