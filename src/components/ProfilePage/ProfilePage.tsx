@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { loginUser, putUser } from '../../utils/fetch';
 import { RegistrationInputs } from '../../utils/types';
-import { clearLocalStorage, setLocalStorage } from '../../utils/utils';
+import { setLocalStorage } from '../../utils/utils';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import { useAuth } from '../hook/useAuth';
@@ -22,20 +22,6 @@ function ProfilePage() {
   const [responseError, setResponseError] = useState('');
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const { t } = useTranslation();
-
-  function handleLogOut() {
-    clearLocalStorage();
-    dispatch({
-      type: 'user',
-      data: {
-        username: null,
-        login: null,
-        token: null,
-        id: null,
-      },
-    });
-    navigate('/');
-  }
 
   const onSubmit: SubmitHandler<RegistrationInputs> = async (data) => {
     const name = data.name;
@@ -74,68 +60,72 @@ function ProfilePage() {
   return (
     <>
       <Header />
-      <div>{t('Profile Page')}</div>
-      <button onClick={changeActive} style={{ backgroundColor: '#E53E3E', marginTop: '70px' }}>
-        {t('Delete account')}
-      </button>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        {t('Current name')}: <span style={{ fontWeight: 'bold' }}>{state.username}</span>
-        <label>
-          {t('Name')}:
-          <input
-            {...register('name', {
-              required: 'Name is required',
-              minLength: { value: 2, message: 'Name is too short' },
-              maxLength: { value: 20, message: 'Name is too long' },
-              pattern: {
-                value: /[a-zA-Z\s-]{2,25}/,
-                message: 'Name should contain only letters, whitespace caracters or "-" character',
-              },
-            })}
+      <section className={styles.profile__section}>
+        <div className={styles.profile__wrapper}>
+          <div>{t('Profile Page')}</div>
+          <button onClick={changeActive} className={styles.delete}>
+            {t('Delete account')}
+          </button>
+          <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+            {t('Current name')}: <span style={{ fontWeight: 'bold' }}>{state.username}</span>
+            <label>
+              {t('Name')}:
+              <input
+                {...register('name', {
+                  required: 'Name is required',
+                  minLength: { value: 2, message: 'Name is too short' },
+                  maxLength: { value: 20, message: 'Name is too long' },
+                  pattern: {
+                    value: /[a-zA-Z\s-]{2,25}/,
+                    message: 'Name should contain letters, whitespace caracters or "-" character',
+                  },
+                })}
+              />
+              {errors.name && <p>{errors.name.message}</p>}
+            </label>
+            {t('Current login')}:<span style={{ fontWeight: 'bold' }}> {state.login}</span>
+            <label>
+              {t('Login')}:
+              <input
+                {...register('login', {
+                  required: 'Login is required',
+                  maxLength: { value: 20, message: 'Login is too long' },
+                  minLength: { value: 3, message: 'Login is too short' },
+                })}
+              />
+              {errors.login && <p>{errors.login.message}</p>}
+            </label>
+            <label>
+              {t('Password')}:
+              <input
+                type="password"
+                autoComplete="on"
+                {...register('password', {
+                  required: 'Password is required',
+                  minLength: { value: 6, message: 'Password is too short' },
+                  maxLength: { value: 25, message: 'Password is too long' },
+                  pattern: {
+                    value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,25}/,
+                    message:
+                      'Password should contain at least one special character (!@#$%^&*), digit and letter',
+                  },
+                })}
+              />
+              {errors.password && <p>{errors.password.message}</p>}
+            </label>
+            <button type="submit" className={styles.change}>
+              {t('Change user data')}
+            </button>
+          </form>
+          {responseError && <p>{responseError}</p>}
+          <Modal
+            active={activeModal}
+            setActive={setActiveModal}
+            setError={setResponseError}
+            case="profile"
           />
-          {errors.name && <p>{errors.name.message}</p>}
-        </label>
-        {t('Current login')}:<span style={{ fontWeight: 'bold' }}> {state.login}</span>
-        <label>
-          {t('Login')}:
-          <input
-            {...register('login', {
-              required: 'Login is required',
-              maxLength: { value: 20, message: 'Login is too long' },
-              minLength: { value: 3, message: 'Login is too short' },
-            })}
-          />
-          {errors.login && <p>{errors.login.message}</p>}
-        </label>
-        <label>
-          {t('Password')}:
-          <input
-            type="password"
-            autoComplete="on"
-            {...register('password', {
-              required: 'Password is required',
-              minLength: { value: 6, message: 'Password is too short' },
-              maxLength: { value: 25, message: 'Password is too long' },
-              pattern: {
-                value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,25}/,
-                message:
-                  'Password should contain at least one special character (!@#$%^&*), digit and letter',
-              },
-            })}
-          />
-          {errors.password && <p>{errors.password.message}</p>}
-        </label>
-        <button type="submit" style={{ backgroundColor: '#99A33B', marginBottom: '150px' }}>
-          {t('Change user data')}
-        </button>
-      </form>
-      {responseError && <p>{responseError}</p>}
-      <Modal
-        active={activeModal}
-        setActive={setActiveModal}
-        setError={setResponseError}
-        case="profile"
-      />
+        </div>
+      </section>
       <Footer />
     </>
   );
