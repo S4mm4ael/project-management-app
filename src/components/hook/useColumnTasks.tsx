@@ -9,7 +9,7 @@ const MAX_TASK_PER_COLUMN = 200;
 
 function useColumnTasks(column: ColumnType) {
   const [tasks, setTasks] = useTaskCollection();
-
+  console.log(tasks);
   const columnTasks = tasks[column];
 
   const addEmptyTask = useCallback(() => {
@@ -22,7 +22,7 @@ function useColumnTasks(column: ColumnType) {
 
       const newColumnTask: TaskModel = {
         id: uuidv4(),
-        title: `New ${column} task`,
+        title: `New task`,
         color: pickChakraRandomColor(),
         column,
       };

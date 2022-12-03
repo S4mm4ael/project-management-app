@@ -268,3 +268,24 @@ export async function updateColumn(
     console.log(error);
   }
 }
+
+export async function getTasksByBoardId(token: string | null, boardId: string | null) {
+  try {
+    const response = await fetch(`${url}/tasksSet/${boardId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 200) {
+      const tasks = await response.json();
+      return tasks;
+    }
+    if (response.status !== 200) {
+      throw new Error(`Something went wrong... Error code: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

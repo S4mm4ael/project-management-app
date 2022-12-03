@@ -73,7 +73,6 @@ function ProfilePage() {
 
   return (
     <>
-
       <div>{t('Profile Page')}</div>
       <Link to="/main">
         <button>{t('Main page')}</button>
@@ -136,8 +135,6 @@ function ProfilePage() {
         setError={setResponseError}
         case="profile"
       />
-
-     
     </>
   );
 }

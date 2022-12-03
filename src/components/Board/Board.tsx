@@ -17,6 +17,8 @@ function Board() {
   const boardId = localStorage.getItem('currentBoardId');
   const token = localStorage.getItem('token');
 
+  const tfn = ['Todo', 'In Progress', 'Blocked', 'Completed', 't1', 't2', 't3', 't4', 't5', 't6'];
+
   const handleGetBoard = async () => {
     try {
       const response = await getBoard(token, boardId);
@@ -81,7 +83,7 @@ function Board() {
                 handleCreateColumn();
                 handleGetColumns();
               }}
-              style={{ backgroundColor: '#99A33B' }}
+              style={{ backgroundColor: '#99A33B', marginTop: '70px' }}
             >
               create Column
             </button>
@@ -93,7 +95,7 @@ function Board() {
               {columnApiData.map((item, index) => (
                 <Column
                   key={item._id}
-                  column={ColumnType.TO_DO}
+                  column={tfn[index] as ColumnType}
                   item={item}
                   boardId={boardId}
                   columnId={columnApiData[index]._id}
