@@ -73,14 +73,13 @@ function ProfilePage() {
 
   return (
     <>
+      <Header />
       <div>{t('Profile Page')}</div>
-      <Link to="/main">
-        <button>{t('Main page')}</button>
-      </Link>
-      <button onClick={handleLogOut}>{t('Sign Out')}</button>
-      <button onClick={changeActive}>{t('Delete account')}</button>
+      <button onClick={changeActive} style={{ backgroundColor: '#E53E3E', marginTop: '70px' }}>
+        {t('Delete account')}
+      </button>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        {t('Current name')}: {state.username}
+        {t('Current name')}: <span style={{ fontWeight: 'bold' }}>{state.username}</span>
         <label>
           {t('Name')}:
           <input
@@ -96,7 +95,7 @@ function ProfilePage() {
           />
           {errors.name && <p>{errors.name.message}</p>}
         </label>
-        {t('Current login')}: {state.login}
+        {t('Current login')}:<span style={{ fontWeight: 'bold' }}> {state.login}</span>
         <label>
           {t('Login')}:
           <input
@@ -126,7 +125,9 @@ function ProfilePage() {
           />
           {errors.password && <p>{errors.password.message}</p>}
         </label>
-        <button type="submit">{t('Change user data')}</button>
+        <button type="submit" style={{ backgroundColor: '#99A33B', marginBottom: '150px' }}>
+          {t('Change user data')}
+        </button>
       </form>
       {responseError && <p>{responseError}</p>}
       <Modal
@@ -135,6 +136,7 @@ function ProfilePage() {
         setError={setResponseError}
         case="profile"
       />
+      <Footer />
     </>
   );
 }
