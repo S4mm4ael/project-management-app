@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import styles from '../RegistrationPage/RegistrationPage.module.css';
 
 export function RegistrationPage() {
-  const [state, dispatch] = useAuth();
+  const [, dispatch] = useAuth();
   const navigate = useNavigate();
   const {
     register,

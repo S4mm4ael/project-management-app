@@ -39,8 +39,15 @@ export function Modal(props: PropsModal) {
       onClick={() => props.setActive(false)}
     >
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
-        <div onClick={() => props.setActive(false)}>X</div>
-        {t('Delete current user')}?<button onClick={handleDeleteAccount}>{t('Confirm')}</button>
+        <div className={styles.close} onClick={() => props.setActive(false)}>
+          X
+        </div>
+        <div className={styles.message__wrapper}>
+          {t('Delete current user')}?
+          <button className={styles.confirm__delete} onClick={handleDeleteAccount}>
+            {t('Confirm')}
+          </button>
+        </div>
       </div>
     </div>
   );

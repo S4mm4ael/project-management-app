@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Board from './components/Board/Board';
 import { AuthProvider } from './components/hoc/AuthProvider';
 import RequireAuth from './components/hoc/RequireAuth';
 import { LoginPage } from './components/LoginPage/LoginPage';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<WelcomePage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
+          <Route path="board" element={<Board />} />
           <Route
             path="main"
             element={

@@ -17,3 +17,13 @@
 .board__section{
   padding: 20px;
 }
+.board__header{
+  display: flex;
+  gap: 20px;
+}
+.board__title{
+  font-size: 2rem;
+}
+.create__button{
+  min-width: 130px;
+}

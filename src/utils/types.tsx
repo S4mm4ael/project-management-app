@@ -23,16 +23,51 @@ export type Body = {
 export type LoginInputs = {
   login: string;
   password: string;
-}
+};
 
 export type RegistrationInputs = {
   name: string;
   login: string;
   password: string;
-}
+};
 
 export type PropsModal = {
   active: boolean;
   setActive: (value: boolean) => void;
-  setError: (velue: string) => void;
+  setError: (value: string) => void;
+  case: string;
+};
+export type PropsModalConfirm = {
+  token: string | null;
+  active: boolean;
+  setActive: (value: boolean) => void;
+  setError: (value: string) => void;
+  boardId: string | null;
+  columnId: string;
+  handleGetColumns: () => Promise<void>;
+};
+
+export type Boards = {
+  _id: string;
+  title: string;
+  owner: string;
+  users: string[];
+};
+
+export type BoardsBody = {
+  title: string;
+  owner: string;
+  users: string[];
+};
+
+export type Columns = {
+  _id: string;
+  title: string;
+  order: number;
+  boardId: string;
+};
+
+export type ColumnBody = {
+  title: string;
+  order: number;
 };
