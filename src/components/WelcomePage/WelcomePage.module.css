@@ -5,6 +5,16 @@
   justify-content: space-between;
   flex-direction: column;
   padding: 0 40px;
+  margin-top: 80px;
+}
+.welcome__header{
+  font-size: 2rem;
+  display: block;
+  max-width: 500px;
+  text-align: end;
+}
+.welcome__article{
+  text-align: justify;
 }
 .welcome__top{
   display: flex;

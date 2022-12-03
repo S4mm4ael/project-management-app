@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loginUser, putUser } from '../../utils/fetch';
 import { RegistrationInputs } from '../../utils/types';
 import { clearLocalStorage, setLocalStorage } from '../../utils/utils';
+import Footer from '../Footer/Footer';
+import Header from '../Header/Header';
 import { useAuth } from '../hook/useAuth';
 import { Modal } from '../Modal/Modal';
 import styles from './Profile.module.css';
@@ -71,6 +73,7 @@ function ProfilePage() {
 
   return (
     <>
+
       <div>{t('Profile Page')}</div>
       <Link to="/main">
         <button>{t('Main page')}</button>
@@ -133,6 +136,8 @@ function ProfilePage() {
         setError={setResponseError}
         case="profile"
       />
+
+     
     </>
   );
 }
