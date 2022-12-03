@@ -127,7 +127,12 @@ function ProfilePage() {
         <button type="submit">{t('Change user data')}</button>
       </form>
       {responseError && <p>{responseError}</p>}
-      <Modal active={activeModal} setActive={setActiveModal} setError={setResponseError} />
+      <Modal
+        active={activeModal}
+        setActive={setActiveModal}
+        setError={setResponseError}
+        case="profile"
+      />
     </>
   );
 }

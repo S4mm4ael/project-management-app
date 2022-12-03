@@ -20,7 +20,6 @@ function Board() {
   const handleGetBoard = async () => {
     try {
       const response = await getBoard(token, boardId);
-      //console.log(response);
       if (response.status > 399) {
         throw new Error(`Something went wrong... Error code: ${response.status}`);
       }
@@ -28,6 +27,7 @@ function Board() {
     } catch (error) {
       console.log(error);
     }
+    handleGetColumns();
   };
 
   const handleGetColumns = async () => {
@@ -61,35 +61,9 @@ function Board() {
 
   useEffect(() => {
     handleGetBoard();
-    handleGetColumns();
+    //handleGetColumns();
   }, []);
-  /*
-  return (
-    <>
-      <ChakraProvider theme={theme}>
-        <Header />
 
-        <section className={styles.board__section}>
-          <Link to="/main">
-            <button className={styles.back__button}>Back</button>
-          </Link>
-          Board Title: {apiData?.title}
-          <DndProvider backend={HTML5Backend}>
-            <Container maxWidth="container.lg" px={4} py={8}>
-              <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 16, md: 4 }}>
-                <Column column={ColumnType.TO_DO} />
-                <Column column={ColumnType.IN_PROGRESS} />
-                <Column column={ColumnType.BLOCKED} />
-                <Column column={ColumnType.COMPLETED} />
-              </SimpleGrid>
-            </Container>
-          </DndProvider>
-        </section>
-
-        <Footer />
-      </ChakraProvider>
-    </>
-  );*/
   return (
     <>
       <ChakraProvider theme={theme}>
@@ -109,7 +83,7 @@ function Board() {
               }}
               style={{ backgroundColor: '#99A33B' }}
             >
-              createColumn
+              create Column
             </button>
             <h2 className={styles.board__title}>{apiData?.title}</h2>
           </div>
@@ -124,7 +98,7 @@ function Board() {
                   boardId={boardId}
                   columnId={columnApiData[index]._id}
                   title={columnApiData[index].title}
-                  handleGetColumns={handleGetColumns}
+                  handleGetColumns={handleGetBoard}
                 />
               ))}
             </Container>
