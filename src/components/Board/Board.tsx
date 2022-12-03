@@ -1,21 +1,25 @@
 import { ChakraProvider, Container, theme } from '@chakra-ui/react';
 import { DndProvider } from 'react-dnd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import Column from '../Column/Column';
 import { ColumnType } from '../../utils/enums';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import styles from './Board.module.css';
-import { createColumn, getBoard, getColumns } from '../../utils/fetch';
+import { createColumn, deleteBoard, getBoard, getColumns } from '../../utils/fetch';
 import { useEffect, useState } from 'react';
 import { Boards, Columns } from '../../utils/types';
+import ModalConfirm from '../ModalConfirm/ModalConfirm';
 
 function Board() {
   const [apiData, setApiData] = useState<Boards>();
   const [columnApiData, setColumnApiData] = useState<Columns[]>([]);
   const boardId = localStorage.getItem('currentBoardId');
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+  const [activeModal, setActiveModal] = useState<boolean>(false);
+  const [responseError, setResponseError] = useState('');
 
   const tfn = ['Todo', 'In Progress', 'Blocked', 'Completed', 't1', 't2', 't3', 't4', 't5', 't6'];
 
@@ -63,7 +67,6 @@ function Board() {
 
   useEffect(() => {
     handleGetBoard();
-    //handleGetColumns();
   }, []);
 
   return (
@@ -76,14 +79,15 @@ function Board() {
             <Link to="/main">
               <button className={styles.back__button}>Back</button>
             </Link>
-
+            <button className={styles.delete__button} onClick={() => setActiveModal(true)}>
+              Delete current board
+            </button>
             <button
               className={styles.create__button}
               onClick={() => {
                 handleCreateColumn();
                 handleGetColumns();
               }}
-              style={{ backgroundColor: '#99A33B', marginTop: '70px' }}
             >
               create Column
             </button>
@@ -106,7 +110,15 @@ function Board() {
             </Container>
           </DndProvider>
         </section>
-
+        <ModalConfirm
+          token={token}
+          active={activeModal}
+          setActive={setActiveModal}
+          setError={setResponseError}
+          boardId={boardId}
+          columnId={'deleteBoard'}
+          handleGetColumns={handleGetColumns}
+        />
         <Footer />
       </ChakraProvider>
     </>

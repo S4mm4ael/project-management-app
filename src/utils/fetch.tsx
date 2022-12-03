@@ -289,3 +289,24 @@ export async function getTasksByBoardId(token: string | null, boardId: string | 
     console.log(error);
   }
 }
+
+export async function deleteBoard(token: string | null, boardId: string | null) {
+  try {
+    const response = await fetch(`${url}/boards/${boardId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 200) {
+      const board = await response.json();
+      return board;
+    }
+    if (response.status !== 200) {
+      throw new Error(`Something went wrong... Error code: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

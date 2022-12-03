@@ -19,6 +19,8 @@
 }
 .board__header{
   display: flex;
+  align-items: center;
+  margin-top: 70px;
   gap: 20px;
 }
 .board__title{
@@ -26,4 +28,9 @@
 }
 .create__button{
   min-width: 130px;
+  background-color: #99A33B;
+}
+.delete__button{
+  min-width: 160px;
+  background-color: #ff1500;
 }
