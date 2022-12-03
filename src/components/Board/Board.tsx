@@ -48,8 +48,8 @@ function Board() {
   const handleCreateColumn = async () => {
     try {
       const body = {
-        title: 'Column #4',
-        order: 3,
+        title: 'New column',
+        order: 0,
       };
       const response = await createColumn(body, token, boardId);
       if (response.status > 399) {
