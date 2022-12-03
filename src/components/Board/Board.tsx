@@ -1,13 +1,13 @@
 import { ChakraProvider, Container, theme } from '@chakra-ui/react';
 import { DndProvider } from 'react-dnd';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import Column from '../Column/Column';
 import { ColumnType } from '../../utils/enums';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import styles from './Board.module.css';
-import { createColumn, deleteBoard, getBoard, getColumns } from '../../utils/fetch';
+import { createColumn, getBoard, getColumns } from '../../utils/fetch';
 import { useEffect, useState } from 'react';
 import { Boards, Columns } from '../../utils/types';
 import ModalConfirm from '../ModalConfirm/ModalConfirm';
@@ -17,7 +17,6 @@ function Board() {
   const [columnApiData, setColumnApiData] = useState<Columns[]>([]);
   const boardId = localStorage.getItem('currentBoardId');
   const token = localStorage.getItem('token');
-  const navigate = useNavigate();
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const [responseError, setResponseError] = useState('');
 
@@ -39,7 +38,6 @@ function Board() {
   const handleGetColumns = async () => {
     try {
       const response = await getColumns(token, boardId);
-      console.log(response);
       if (response.status > 399) {
         throw new Error(`Something went wrong... Error code: ${response.status}`);
       }
