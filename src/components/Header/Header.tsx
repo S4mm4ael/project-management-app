@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './Header.module.css';
 import logo from '../../assets/img/Logo.png';
 import langchange from '../../assets/img/Langchange.png';
@@ -10,6 +10,7 @@ function Header() {
   const token = localStorage.getItem('token');
   const [, dispatch] = useAuth();
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
   function handleLogOut() {
     clearLocalStorage();
@@ -22,6 +23,7 @@ function Header() {
         id: null,
       },
     });
+    navigate('/');
   }
 
   function changeLangHandler(e: React.ChangeEvent<HTMLSelectElement>) {

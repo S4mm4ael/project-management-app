@@ -13,7 +13,6 @@ export async function createUser(body: Body) {
     });
     if (response.status === 200) {
       const user = await response.json();
-      console.log('succsess sign up', user);
       return user;
     }
     if (response.status !== 200) {
@@ -35,7 +34,6 @@ export async function loginUser(body: Body) {
     });
     if (response.status === 200) {
       const user = await response.json();
-      console.log('succsess sign in', user);
       return user;
     }
     if (response.status !== 200) {
@@ -143,7 +141,6 @@ export async function createBoard(body: BoardsBody, token: string | null) {
     });
     if (response.status === 200) {
       const board = await response.json();
-      console.log('succsess', board);
       return board;
     }
     if (response.status !== 200) {
@@ -208,7 +205,6 @@ export async function createColumn(body: ColumnBody, token: string | null, board
     });
     if (response.status === 200) {
       const column = await response.json();
-      console.log('succsess', column);
       return column;
     }
     if (response.status !== 200) {
@@ -234,7 +230,6 @@ export async function deleteColumn(
     });
     if (response.status === 200) {
       const column = await response.json();
-      console.log('succsess delete', column);
     }
     if (response.status !== 200) {
       throw new Error(`Something went wrong... Error code: ${response.status}`);
@@ -260,6 +255,48 @@ export async function updateColumn(
     });
     if (response.status === 200) {
       return response;
+    }
+    if (response.status !== 200) {
+      throw new Error(`Something went wrong... Error code: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getTasksByBoardId(token: string | null, boardId: string | null) {
+  try {
+    const response = await fetch(`${url}/tasksSet/${boardId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 200) {
+      const tasks = await response.json();
+      return tasks;
+    }
+    if (response.status !== 200) {
+      throw new Error(`Something went wrong... Error code: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteBoard(token: string | null, boardId: string | null) {
+  try {
+    const response = await fetch(`${url}/boards/${boardId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 200) {
+      const board = await response.json();
+      return board;
     }
     if (response.status !== 200) {
       throw new Error(`Something went wrong... Error code: ${response.status}`);

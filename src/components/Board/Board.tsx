@@ -10,12 +10,17 @@ import styles from './Board.module.css';
 import { createColumn, getBoard, getColumns } from '../../utils/fetch';
 import { useEffect, useState } from 'react';
 import { Boards, Columns } from '../../utils/types';
+import ModalConfirm from '../ModalConfirm/ModalConfirm';
 
 function Board() {
   const [apiData, setApiData] = useState<Boards>();
   const [columnApiData, setColumnApiData] = useState<Columns[]>([]);
   const boardId = localStorage.getItem('currentBoardId');
   const token = localStorage.getItem('token');
+  const [activeModal, setActiveModal] = useState<boolean>(false);
+  const [responseError, setResponseError] = useState('');
+
+  const tfn = ['Todo', 'In Progress', 'Blocked', 'Completed', 't1', 't2', 't3', 't4', 't5', 't6'];
 
   const handleGetBoard = async () => {
     try {
@@ -33,7 +38,6 @@ function Board() {
   const handleGetColumns = async () => {
     try {
       const response = await getColumns(token, boardId);
-      console.log(response);
       if (response.status > 399) {
         throw new Error(`Something went wrong... Error code: ${response.status}`);
       }
@@ -46,8 +50,8 @@ function Board() {
   const handleCreateColumn = async () => {
     try {
       const body = {
-        title: 'Column #4',
-        order: 3,
+        title: 'New column',
+        order: 0,
       };
       const response = await createColumn(body, token, boardId);
       if (response.status > 399) {
@@ -61,7 +65,6 @@ function Board() {
 
   useEffect(() => {
     handleGetBoard();
-    //handleGetColumns();
   }, []);
 
   return (
@@ -74,14 +77,15 @@ function Board() {
             <Link to="/main">
               <button className={styles.back__button}>Back</button>
             </Link>
-
+            <button className={styles.delete__button} onClick={() => setActiveModal(true)}>
+              Delete current board
+            </button>
             <button
               className={styles.create__button}
               onClick={() => {
                 handleCreateColumn();
                 handleGetColumns();
               }}
-              style={{ backgroundColor: '#99A33B' }}
             >
               create Column
             </button>
@@ -93,7 +97,7 @@ function Board() {
               {columnApiData.map((item, index) => (
                 <Column
                   key={item._id}
-                  column={ColumnType.TO_DO}
+                  column={tfn[index] as ColumnType}
                   item={item}
                   boardId={boardId}
                   columnId={columnApiData[index]._id}
@@ -104,7 +108,15 @@ function Board() {
             </Container>
           </DndProvider>
         </section>
-
+        <ModalConfirm
+          token={token}
+          active={activeModal}
+          setActive={setActiveModal}
+          setError={setResponseError}
+          boardId={boardId}
+          columnId={'deleteBoard'}
+          handleGetColumns={handleGetColumns}
+        />
         <Footer />
       </ChakraProvider>
     </>

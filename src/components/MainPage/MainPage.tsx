@@ -4,15 +4,16 @@ import { Boards } from '../../utils/types';
 import BoardsItem from '../BoardsItem/BoardsItem';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import styles from './MainPage.module.css';
 
 function MainPage() {
   const [apiData, setApiData] = useState<Boards[]>([]);
   const token = localStorage.getItem('token');
+  const currentUser = localStorage.getItem('id') || '';
 
   const handleGetBoards = async () => {
     try {
       const response = await getBoards(token);
-      console.log(response);
       if (response.status > 399) {
         throw new Error(`Something went wrong... Error code: ${response.status}`);
       }
@@ -28,13 +29,13 @@ function MainPage() {
 
   const handleCreateBoard = async () => {
     try {
+      const nextBoardNumber = Number(apiData[apiData.length - 1].title.toString().slice(7));
       const body = {
-        title: 'Board #7',
-        owner: '6373c57e7e75c1eff01df431',
-        users: ['6373c57e7e75c1eff01df431'],
+        title: `Board #${nextBoardNumber + 1}`,
+        owner: currentUser,
+        users: [currentUser],
       };
       const response = await createBoard(body, token);
-      console.log(response);
       if (response.status > 399) {
         throw new Error(`Something went wrong... Error code: ${response.status}`);
       }
@@ -47,13 +48,13 @@ function MainPage() {
   return (
     <>
       <Header />
-      {apiData.map((item) => (
-        <BoardsItem key={item._id} item={item} />
-      ))}
-      <section className="main__section">
-        <button onClick={handleCreateBoard} style={{ backgroundColor: '#99A33B' }}>
-          createBoard
-        </button>
+      <section className={styles.main__section}>
+        {apiData.map((item) => (
+          <BoardsItem key={item._id} item={item} />
+        ))}
+        <section>
+          <button onClick={handleCreateBoard}>createBoard</button>
+        </section>
       </section>
       <Footer />
     </>

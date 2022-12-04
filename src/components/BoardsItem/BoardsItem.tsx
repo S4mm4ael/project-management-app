@@ -8,7 +8,7 @@ function BoardsItem(props: { item: Boards }) {
 
   return (
     <div>
-      {props.item._id} - {props.item.title}
+      <b>{props.item.title}</b>
       <Link to="/board">
         <button onClick={handleToBoard} style={{ backgroundColor: '#99A33B' }}>
           to Board

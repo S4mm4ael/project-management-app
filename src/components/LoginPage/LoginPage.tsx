@@ -43,7 +43,6 @@ function LoginPage() {
       const token = localStorage.getItem('token');
       const responseAllUsers = await getUsers(token);
       thisUserData = responseAllUsers.filter((user: User) => user.login === login);
-      console.log(thisUserData[0]);
       localStorage.setItem('name', thisUserData[0].name);
       localStorage.setItem('login', thisUserData[0].login);
       localStorage.setItem('id', thisUserData[0]._id);
