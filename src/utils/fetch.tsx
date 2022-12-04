@@ -13,7 +13,6 @@ export async function createUser(body: Body) {
     });
     if (response.status === 200) {
       const user = await response.json();
-      console.log('succsess sign up', user);
       return user;
     }
     if (response.status !== 200) {
@@ -35,7 +34,6 @@ export async function loginUser(body: Body) {
     });
     if (response.status === 200) {
       const user = await response.json();
-      console.log('succsess sign in', user);
       return user;
     }
     if (response.status !== 200) {
@@ -143,7 +141,6 @@ export async function createBoard(body: BoardsBody, token: string | null) {
     });
     if (response.status === 200) {
       const board = await response.json();
-      console.log('succsess', board);
       return board;
     }
     if (response.status !== 200) {
@@ -208,7 +205,6 @@ export async function createColumn(body: ColumnBody, token: string | null, board
     });
     if (response.status === 200) {
       const column = await response.json();
-      console.log('succsess', column);
       return column;
     }
     if (response.status !== 200) {
@@ -234,7 +230,6 @@ export async function deleteColumn(
     });
     if (response.status === 200) {
       const column = await response.json();
-      console.log('succsess delete', column);
     }
     if (response.status !== 200) {
       throw new Error(`Something went wrong... Error code: ${response.status}`);

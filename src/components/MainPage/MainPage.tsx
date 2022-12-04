@@ -14,7 +14,6 @@ function MainPage() {
   const handleGetBoards = async () => {
     try {
       const response = await getBoards(token);
-      console.log(response);
       if (response.status > 399) {
         throw new Error(`Something went wrong... Error code: ${response.status}`);
       }
@@ -31,14 +30,12 @@ function MainPage() {
   const handleCreateBoard = async () => {
     try {
       const nextBoardNumber = Number(apiData[apiData.length - 1].title.toString().slice(7));
-      console.log(nextBoardNumber);
       const body = {
         title: `Board #${nextBoardNumber + 1}`,
         owner: currentUser,
         users: [currentUser],
       };
       const response = await createBoard(body, token);
-      console.log(response);
       if (response.status > 399) {
         throw new Error(`Something went wrong... Error code: ${response.status}`);
       }
