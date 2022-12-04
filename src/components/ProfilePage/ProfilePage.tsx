@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { loginUser, putUser } from '../../utils/fetch';
+import { getUsers, loginUser, putUser } from '../../utils/fetch';
 import { RegistrationInputs } from '../../utils/types';
 import { setLocalStorage } from '../../utils/utils';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import { useAuth } from '../hook/useAuth';
-import { Modal } from '../Modal/Modal';
+import ModalConfirm from '../ModalConfirm/ModalConfirm';
 import styles from './Profile.module.css';
 
 function ProfilePage() {
@@ -50,6 +50,17 @@ function ProfilePage() {
       navigate('/login');
     } catch (error) {
       setResponseError('Error');
+    }
+  };
+
+  const handleGetUser = async () => {
+    try {
+      const response = await getUsers(state.token);
+      if (response.status > 399) {
+        throw new Error(`Something went wrong... Error code: ${response.status}`);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -118,11 +129,14 @@ function ProfilePage() {
             </button>
           </form>
           {responseError && <p>{responseError}</p>}
-          <Modal
+          <ModalConfirm
+            token={state.token}
             active={activeModal}
             setActive={setActiveModal}
             setError={setResponseError}
-            case="profile"
+            boardId={'deleteUser'}
+            columnId={'deleteUser'}
+            handleGetColumns={handleGetUser}
           />
         </div>
       </section>
