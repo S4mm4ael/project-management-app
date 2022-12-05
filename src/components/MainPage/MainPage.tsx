@@ -8,6 +8,7 @@ import styles from './MainPage.module.css';
 
 function MainPage() {
   const [apiData, setApiData] = useState<Boards[]>([]);
+  const [confirm, setConfirm] = useState(false);
   const token = localStorage.getItem('token');
   const currentUser = localStorage.getItem('id') || '';
   const handleGetBoards = async () => {
@@ -21,10 +22,13 @@ function MainPage() {
       console.log(error);
     }
   };
+  function handleConfirm() {
+    setConfirm(!confirm);
+  }
 
   useEffect(() => {
     handleGetBoards();
-  }, []);
+  }, [confirm]);
 
   const handleCreateBoard = async () => {
     try {
@@ -55,6 +59,7 @@ function MainPage() {
               item={item}
               token={token}
               handleGetColumns={handleGetBoards}
+              handleConfirm={handleConfirm}
             />
           ))}
         </div>

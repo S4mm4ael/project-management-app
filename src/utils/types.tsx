@@ -45,6 +45,7 @@ export type PropsModalConfirm = {
   boardId: string | null;
   columnId: string;
   handleGetColumns: () => Promise<void>;
+  handleConfirm?: () => void;
 };
 
 export type Boards = {

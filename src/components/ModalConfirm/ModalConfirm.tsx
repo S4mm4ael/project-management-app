@@ -28,7 +28,7 @@ export function ModalConfirm(props: PropsModalConfirm) {
       } else {
         props.setActive(false);
       }
-      navigate('/main');
+      props.handleConfirm!();
     } catch (error) {
       console.log(error);
     }

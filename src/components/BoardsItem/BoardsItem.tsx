@@ -8,6 +8,7 @@ function BoardsItem(props: {
   item: Boards;
   token: string | null;
   handleGetColumns: () => Promise<void>;
+  handleConfirm: () => void;
 }) {
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const [responseError, setResponseError] = useState('');
@@ -28,7 +29,13 @@ function BoardsItem(props: {
             to Board
           </button>
         </Link>
-        <button className={styles.delete__button} onClick={() => setActiveModal(true)}>
+        <button
+          className={styles.delete__button}
+          onClick={() => {
+            setActiveModal(true);
+            handleToBoard();
+          }}
+        >
           Delete board
         </button>
       </div>
@@ -40,6 +47,7 @@ function BoardsItem(props: {
         boardId={boardId}
         columnId={'deleteBoard'}
         handleGetColumns={handleGetBoards}
+        handleConfirm={props.handleConfirm}
       />
     </>
   );
