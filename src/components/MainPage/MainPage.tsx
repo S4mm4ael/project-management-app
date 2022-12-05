@@ -5,8 +5,10 @@ import BoardsItem from '../BoardsItem/BoardsItem';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import styles from './MainPage.module.css';
+import { useTranslation } from 'react-i18next';
 
 function MainPage() {
+  const { t } = useTranslation();
   const [apiData, setApiData] = useState<Boards[]>([]);
   const token = localStorage.getItem('token');
   const currentUser = localStorage.getItem('id') || '';
@@ -29,9 +31,9 @@ function MainPage() {
 
   const handleCreateBoard = async () => {
     try {
-      const nextBoardNumber = Number(apiData[apiData.length - 1].title.toString().slice(7));
+      const nextBoardNumber = Number(apiData[apiData.length - 1].title.toString());
       const body = {
-        title: `Board #${nextBoardNumber + 1}`,
+        title: `${nextBoardNumber + 1}`,
         owner: currentUser,
         users: [currentUser],
       };
@@ -53,7 +55,7 @@ function MainPage() {
           <BoardsItem key={item._id} item={item} />
         ))}
         <section>
-          <button onClick={handleCreateBoard}>createBoard</button>
+          <button onClick={handleCreateBoard}> {t('create Board')}</button>
         </section>
       </section>
       <Footer />

@@ -11,8 +11,10 @@ import { createColumn, getBoard, getColumns } from '../../utils/fetch';
 import { useEffect, useState } from 'react';
 import { Boards, Columns } from '../../utils/types';
 import ModalConfirm from '../ModalConfirm/ModalConfirm';
+import { useTranslation } from 'react-i18next';
 
 function Board() {
+  const { t } = useTranslation();
   const [apiData, setApiData] = useState<Boards>();
   const [columnApiData, setColumnApiData] = useState<Columns[]>([]);
   const boardId = localStorage.getItem('currentBoardId');
@@ -78,7 +80,7 @@ function Board() {
               <button className={styles.back__button}>Back</button>
             </Link>
             <button className={styles.delete__button} onClick={() => setActiveModal(true)}>
-              Delete current board
+              {t('Delete current board')}
             </button>
             <button
               className={styles.create__button}
@@ -87,9 +89,11 @@ function Board() {
                 handleGetColumns();
               }}
             >
-              create Column
+              {t('Create column')}
             </button>
-            <h2 className={styles.board__title}>{apiData?.title}</h2>
+            <h2 className={styles.board__title}>
+              {t('Board')} {apiData?.title}
+            </h2>
           </div>
 
           <DndProvider backend={HTML5Backend}>
