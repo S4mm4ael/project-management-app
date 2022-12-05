@@ -94,12 +94,14 @@ export function RegistrationPage() {
               />
               {errors.password && <p className={styles.input__error}>{errors.password.message}</p>}
             </label>
-            <button className={styles.confirm} type="submit">
-              {t('Create account')}
-            </button>
-            <Link to="/">
-              <button className={styles.main}>{t('Back')}</button>
-            </Link>
+            <div className={styles.buttons__wrapper}>
+              <button className={styles.confirm} type="submit">
+                {t('Create account')}
+              </button>
+              <Link to="/">
+                <button className={styles.main}>{t('Back')}</button>
+              </Link>
+            </div>
           </form>
         </div>
       </section>
