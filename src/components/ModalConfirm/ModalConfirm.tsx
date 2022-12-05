@@ -25,6 +25,8 @@ export function ModalConfirm(props: PropsModalConfirm) {
       const response = await deleteBoard(props.token, props.boardId);
       if (response.status > 399) {
         throw new Error(`Something went wrong... Error code: ${response.status}`);
+      } else {
+        props.setActive(false);
       }
       navigate('/main');
     } catch (error) {
@@ -66,7 +68,11 @@ export function ModalConfirm(props: PropsModalConfirm) {
         {props.columnId === 'deleteBoard' && (
           <div className={styles.message__wrapper}>
             {t('Delete current board')}?
-            <button className={styles.confirm__delete} onClick={handleDeleteBoard}>
+            <button
+              style={{ backgroundColor: '#E53E3E' }}
+              className={styles.confirm__delete}
+              onClick={handleDeleteBoard}
+            >
               {t('Confirm')}
             </button>
           </div>
@@ -74,7 +80,11 @@ export function ModalConfirm(props: PropsModalConfirm) {
         {props.columnId !== 'deleteBoard' && props.columnId !== 'deleteUser' && (
           <div className={styles.message__wrapper}>
             {t('Delete column')}?
-            <button className={styles.confirm__delete} onClick={handleDeleteColumn}>
+            <button
+              style={{ backgroundColor: '#E53E3E' }}
+              className={styles.confirm__delete}
+              onClick={handleDeleteColumn}
+            >
               {t('Confirm')}
             </button>
           </div>
@@ -82,7 +92,11 @@ export function ModalConfirm(props: PropsModalConfirm) {
         {props.columnId === 'deleteUser' && (
           <div className={styles.message__wrapper}>
             {t('Delete current user')}?
-            <button className={styles.confirm__delete} onClick={handleDeleteAccount}>
+            <button
+              style={{ backgroundColor: '#E53E3E' }}
+              className={styles.confirm__delete}
+              onClick={handleDeleteAccount}
+            >
               {t('Confirm')}
             </button>
           </div>

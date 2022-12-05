@@ -51,10 +51,14 @@ function MainPage() {
       <section className={styles.main__section}>
         <div className={styles.boards__wrapper}>
           {apiData.map((item) => (
-            <BoardsItem key={item._id} item={item} />
+            <BoardsItem
+              key={item._id}
+              item={item}
+              token={token}
+              handleGetColumns={handleGetBoards}
+            />
           ))}
         </div>
-
         <section>
           <button className={styles.create} onClick={handleCreateBoard}>
             create Board
