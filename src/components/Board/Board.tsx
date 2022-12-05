@@ -79,9 +79,6 @@ function Board() {
             <Link to="/main">
               <button className={styles.back__button}>Back</button>
             </Link>
-            <button className={styles.delete__button} onClick={() => setActiveModal(true)}>
-              {t('Delete current board')}
-            </button>
             <button
               className={styles.create__button}
               onClick={() => {

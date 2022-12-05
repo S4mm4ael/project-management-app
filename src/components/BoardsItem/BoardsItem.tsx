@@ -25,7 +25,9 @@ function BoardsItem(props: {
   return (
     <>
       <div className={styles.boards__item}>
-        <b>{props.item.title}</b>
+        <b>
+          {t('Board')} {props.item.title}
+        </b>
         <Link to="/board">
           <button onClick={handleToBoard} style={{ backgroundColor: '#99A33B' }}>
             {t('to Board')}
