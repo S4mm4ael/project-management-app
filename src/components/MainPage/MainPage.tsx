@@ -10,7 +10,6 @@ function MainPage() {
   const [apiData, setApiData] = useState<Boards[]>([]);
   const token = localStorage.getItem('token');
   const currentUser = localStorage.getItem('id') || '';
-
   const handleGetBoards = async () => {
     try {
       const response = await getBoards(token);

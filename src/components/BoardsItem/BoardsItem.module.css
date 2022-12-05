@@ -11,5 +11,5 @@
   border-radius: 20px;
 }
 .delete__button{
-  background-color: #E53E3E;
+  background-color: #E53E3E !important;
 }

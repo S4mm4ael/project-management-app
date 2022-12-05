@@ -13,6 +13,7 @@ function BoardsItem(props: {
   const [responseError, setResponseError] = useState('');
   const boardId = props.item._id;
   const token = props.token;
+
   const handleGetBoards = props.handleGetColumns;
   function handleToBoard() {
     localStorage.setItem('currentBoardId', props.item._id);
@@ -27,7 +28,7 @@ function BoardsItem(props: {
             to Board
           </button>
         </Link>
-        <button style={{ backgroundColor: '#E53E3E' }} onClick={() => setActiveModal(true)}>
+        <button className={styles.delete__button} onClick={() => setActiveModal(true)}>
           Delete board
         </button>
       </div>
