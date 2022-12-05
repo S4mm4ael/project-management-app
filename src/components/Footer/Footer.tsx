@@ -14,8 +14,7 @@ function Footer() {
           </div>
           <div className="footer__center">2022</div>
           <div className={styles.footer__right}>
-            <a href="https://github.com/Sammily">Dasha </a>
-            <a href="https://github.com/S4mm4ael"> Semion</a>
+            <a href="https://github.com/Sammily/project-management-app">GitHub</a>
           </div>
         </div>
       </footer>

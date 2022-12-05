@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Boards } from '../../utils/types';
+import { useTranslation } from 'react-i18next';
 import styles from './BoardsItem.module.css';
 import ModalConfirm from '../ModalConfirm/ModalConfirm';
 
@@ -14,19 +15,21 @@ function BoardsItem(props: {
   const [responseError, setResponseError] = useState('');
   const boardId = props.item._id;
   const token = props.token;
-
+  const { t } = useTranslation();
   const handleGetBoards = props.handleGetColumns;
+
   function handleToBoard() {
     localStorage.setItem('currentBoardId', props.item._id);
   }
 
   return (
+
     <>
       <div className={styles.boards__item}>
         <b>{props.item.title}</b>
         <Link to="/board">
           <button onClick={handleToBoard} style={{ backgroundColor: '#99A33B' }}>
-            to Board
+            {t('to Board')}
           </button>
         </Link>
         <button

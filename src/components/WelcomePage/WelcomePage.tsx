@@ -44,8 +44,9 @@ function WelcomePage() {
               <div className={styles.team__text}>
                 <h3>{t('Darya Usova')}</h3>
                 <div className={styles.text__paragraph}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua.
+                  {t(
+                    'Created an authorization process, fetching using backend API, Profile page, Boards component, Modal component, localization. '
+                  )}
                 </div>
               </div>
             </div>
@@ -56,8 +57,9 @@ function WelcomePage() {
               <div className={styles.team__text}>
                 <h3>{t('Semion Krapivin')}</h3>
                 <div className={styles.text__paragraph}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua.
+                  {t(
+                    'Developed design, HTML, CSS layouts of components, Board component, 404 component, Welcome component, recorded final video and deploy. '
+                  )}
                 </div>
               </div>
             </div>

@@ -32,6 +32,15 @@ const resources = {
       'Page Not Found': 'Page Not Found',
       'Delete current user': 'Delete current user',
       Confirm: 'Confirm',
+      'create Board': 'Create Board',
+      'to Board': 'to Board',
+      Board: 'Board',
+      'Create column': 'Create column',
+      'Delete current board': 'Delete current board',
+      'Created an authorization process, fetching using backend API, Profile page, Boards component, Modal component, localization. ':
+        'Created an authorization process, fetching using backend API, Profile page, Boards component, Modal component, localization. ',
+      'Developed design, HTML, CSS layouts of components, Board component, 404 component, Welcome component, recorded final video and deploy. ':
+        'Developed design, HTML, CSS layouts of components, Board component, 404 component, Welcome component, recorded final video and deploy. ',
     },
   },
   ru: {
@@ -64,6 +73,15 @@ const resources = {
       'Page Not Found': 'Страница не найдена',
       'Delete current user': 'Удалить текущего пользователя',
       Confirm: 'Подтвердить',
+      'create Board': 'Создать Доску',
+      'to Board': 'Перейти',
+      'Create column': 'Создать колонку',
+      'Delete current board': 'Удалить Доску',
+      Board: 'Доска',
+      'Created an authorization process, fetching using backend API, Profile page, Boards component, Modal component, localization. ':
+        'Работала с процессом авторизации и аутентификации, установкой backend и взаимодействием с API. Создала страницу Профиля, Общую страницу досок, Модальный компонент, перевод.',
+      'Developed design, HTML, CSS layouts of components, Board component, 404 component, Welcome component, recorded final video and deploy. ':
+        'Разработал дизайн, вёрстку и стилизацию компонентов, компонент Доски, компонент 404, приветственную страницу. Записал демо-видео и произвёл деплой проекта.',
     },
   },
 };
