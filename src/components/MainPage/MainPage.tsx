@@ -49,11 +49,16 @@ function MainPage() {
     <>
       <Header />
       <section className={styles.main__section}>
-        {apiData.map((item) => (
-          <BoardsItem key={item._id} item={item} />
-        ))}
+        <div className={styles.boards__wrapper}>
+          {apiData.map((item) => (
+            <BoardsItem key={item._id} item={item} />
+          ))}
+        </div>
+
         <section>
-          <button onClick={handleCreateBoard}>createBoard</button>
+          <button className={styles.create} onClick={handleCreateBoard}>
+            create Board
+          </button>
         </section>
       </section>
       <Footer />

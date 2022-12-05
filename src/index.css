@@ -28,7 +28,7 @@ button{
   cursor: pointer;
   border: none;
   border-radius: 10px;
-  width: 120px;
+  min-width: 120px;
   min-height: 50px;
   font-size: 1rem;
   font-weight: 600;
