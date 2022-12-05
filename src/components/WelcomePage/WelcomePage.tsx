@@ -27,7 +27,9 @@ function WelcomePage() {
                 )}
               </article>
               <div className={styles.button__container}>
-                <button className={styles.sign__in}>{t('Demo')}</button>
+                <a href="https://youtu.be/Btt_lvH9Rlk">
+                  <button className={styles.sign__in}>{t('Demo')}</button>
+                </a>
                 <button className={styles.sign__up}>
                   <Link to="/main">{t('Lets try!')}</Link>
                 </button>
