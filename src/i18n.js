@@ -57,7 +57,7 @@ const resources = {
       'Semion Krapivin': 'Семён Крапивин',
       'Edit Profile': 'Профиль',
       'Team task manager app': 'Приложение для управления задачами команды',
-      Login: 'Логин',
+      Login: 'Войти',
       Password: 'Пароль',
       Name: 'Имя',
       Registration: 'Регистрация',

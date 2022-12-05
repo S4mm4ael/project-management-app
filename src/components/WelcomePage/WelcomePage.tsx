@@ -6,6 +6,7 @@ import team from '../../assets/img/team-right.png';
 import dasha from '../../assets/img/dasha.png';
 import sam from '../../assets/img/sam.png';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 function WelcomePage() {
   const { t } = useTranslation();
@@ -27,7 +28,9 @@ function WelcomePage() {
               </article>
               <div className={styles.button__container}>
                 <button className={styles.sign__in}>{t('Demo')}</button>
-                <button className={styles.sign__up}>{t('Lets try!')}</button>
+                <button className={styles.sign__up}>
+                  <Link to="/main">{t('Lets try!')}</Link>
+                </button>
               </div>
             </div>
           </div>
