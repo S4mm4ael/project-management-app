@@ -23,7 +23,6 @@ function BoardsItem(props: {
   }
 
   return (
-
     <>
       <div className={styles.boards__item}>
         <b>{props.item.title}</b>

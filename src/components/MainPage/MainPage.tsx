@@ -34,9 +34,12 @@ function MainPage() {
 
   const handleCreateBoard = async () => {
     try {
-      const nextBoardNumber = Number(apiData[apiData.length - 1].title.toString());
+      let nextBoardNumber;
+      apiData.length === 0
+        ? (nextBoardNumber = 1)
+        : (nextBoardNumber = Number(apiData[apiData.length - 1].title.toString()) + 1);
       const body = {
-        title: `${nextBoardNumber + 1}`,
+        title: `${nextBoardNumber}`,
         owner: currentUser,
         users: [currentUser],
       };
