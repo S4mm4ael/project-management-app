@@ -90,16 +90,18 @@ function LoginPage() {
               />
               {errors.password && <p className={styles.input__error}>{errors.password.message}</p>}
             </label>
-            <button className={styles.confirm} type="submit">
-              {t('Login')}
-            </button>
-            <Link to="/register">
-              <button className={styles.register}>{t('Registration')}</button>
-            </Link>
-            <Link to="/">
-              <button className={styles.main}>{t('Back')}</button>
-            </Link>
-            {responseError && <p className={styles.input__error}>{responseError}</p>}
+            <div className={styles.buttons__wrapper}>
+              <button className={styles.confirm} type="submit">
+                {t('Login')}
+              </button>
+              <Link to="/register">
+                <button className={styles.register}>{t('Registration')}</button>
+              </Link>
+              <Link to="/">
+                <button className={styles.main}>{t('Back')}</button>
+              </Link>
+              {responseError && <p className={styles.input__error}>{responseError}</p>}
+            </div>
           </form>
         </div>
       </section>

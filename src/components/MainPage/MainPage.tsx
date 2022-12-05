@@ -8,9 +8,9 @@ import styles from './MainPage.module.css';
 
 function MainPage() {
   const [apiData, setApiData] = useState<Boards[]>([]);
+  const [confirm, setConfirm] = useState(false);
   const token = localStorage.getItem('token');
   const currentUser = localStorage.getItem('id') || '';
-
   const handleGetBoards = async () => {
     try {
       const response = await getBoards(token);
@@ -22,10 +22,13 @@ function MainPage() {
       console.log(error);
     }
   };
+  function handleConfirm() {
+    setConfirm(!confirm);
+  }
 
   useEffect(() => {
     handleGetBoards();
-  }, []);
+  }, [confirm]);
 
   const handleCreateBoard = async () => {
     try {
@@ -49,11 +52,21 @@ function MainPage() {
     <>
       <Header />
       <section className={styles.main__section}>
-        {apiData.map((item) => (
-          <BoardsItem key={item._id} item={item} />
-        ))}
+        <div className={styles.boards__wrapper}>
+          {apiData.map((item) => (
+            <BoardsItem
+              key={item._id}
+              item={item}
+              token={token}
+              handleGetColumns={handleGetBoards}
+              handleConfirm={handleConfirm}
+            />
+          ))}
+        </div>
         <section>
-          <button onClick={handleCreateBoard}>createBoard</button>
+          <button className={styles.create} onClick={handleCreateBoard}>
+            create Board
+          </button>
         </section>
       </section>
       <Footer />
